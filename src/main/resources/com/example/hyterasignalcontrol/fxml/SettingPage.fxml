@@ -3,10 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/19"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hyterasignalcontrol.controllers.Controller">
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.hyterasignalcontrol.controllers.SettingController">
     <children>
         <Button fx:id="id_btnStart" layoutX="82.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0"
                 prefWidth="80.0" text="Start"/>

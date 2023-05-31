@@ -1,9 +1,22 @@
+
 .button {
 
-  -fx-background-color: #4CAF50; /* Green */
+}
 
-  -fx-text-fill: white;
-
-  -fx-t
-
+.text-area {
+  /*
+  -fx-width: 100%;
+  -fx-height: 150px;
+  -fx-padding: 12px 20px;
+  -fx-box-sizing: border-box;
+  -fx-border: 2px solid #ccc;
+  -fx-border-radius: 4px;
+  -fx-background-color: #f8f8f8;
+  -fx-font-size: 16px;
+  -fx-resize: none;
+  -fx-text-fill: green;
+  -fx-color: green;
+  -fx-background-color: transparent;
+  -fx-border: gone;
+*/
 }

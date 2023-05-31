@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0"
+      prefWidth="600.0" style="-fx-background-color: #e4eaff;" xmlns="http://javafx.com/javafx/19"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hyterasignalcontrol.controllers.InputController">
+
+    <Label layoutX="355.0" layoutY="14.0" text="Convertor signal to text" textFill="#063970">
+        <font>
+            <Font name="Arial Bold Italic" size="20.0"/>
+        </font>
+    </Label>
+
+    <JFXButton fx:id="id_btnStart" layoutX="20.0" layoutY="400.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Start" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
+
+    <JFXButton fx:id="id_btnStop" layoutX="120.0" layoutY="400.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Stop" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
+
+    <JFXButton fx:id="id_btnClear" layoutX="220.0" layoutY="400.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Clear" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
+
+    <JFXButton fx:id="id_btnSetting" layoutX="320.0" layoutY="400.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Setting" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
+
+    <TextArea fx:id="id_taSignal" layoutX="20.0" layoutY="60.0" prefHeight="140.0" prefWidth="560.0"
+              promptText="Signal ..." style="-fx-background-color: #e4afdf;">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </TextArea>
+
+    <TextArea fx:id="id_taText" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
+              promptText="Text ..." style="-fx-color: green;">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </TextArea>
+
+    <Label layoutX="24.0" layoutY="31.0" text="Signal in bytes..." textFill="#063970">
+        <font>
+            <Font name="Arial Bold Italic" size="18.0"/>
+        </font>
+    </Label>
+
+    <Label layoutX="23.0" layoutY="215.0" text="Text" textFill="#063970">
+        <font>
+            <Font name="Arial Bold Italic" size="18.0"/>
+        </font>
+    </Label>
+
+</Pane>

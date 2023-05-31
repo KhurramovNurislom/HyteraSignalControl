@@ -11,9 +11,9 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/ControlPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/MainPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Control page");
+        stage.setTitle("Main page...");
         scene.getStylesheets().add
                 (Objects.requireNonNull(Main.class.getResource("css/Style.css")).toExternalForm());
         stage.setScene(scene);
