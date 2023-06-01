@@ -66,31 +66,15 @@
         </font>
     </JFXButton>
 
-    <JFXButton fx:id="id_btnSetting" layoutX="320.0" layoutY="400.0" prefHeight="25.0" prefWidth="80.0"
-               style="-fx-background-color: #063970;" text="Setting" textFill="#e8e8e8">
-        <ripplerFill>
-            <LinearGradient>
-                <stops>
-                    <Stop color="BLACK"/>
-                    <Stop color="#1d7499" offset="0.037800687285223365"/>
-                    <Stop color="WHITE" offset="1.0"/>
-                </stops>
-            </LinearGradient>
-        </ripplerFill>
-        <font>
-            <Font name="Arial Bold Italic" size="14.0"/>
-        </font>
-    </JFXButton>
-
-    <TextArea fx:id="id_taSignal" layoutX="20.0" layoutY="60.0" prefHeight="140.0" prefWidth="560.0"
-              promptText="Signal ..." style="-fx-background-color: #e4afdf;">
+    <TextArea fx:id="id_taSignal" disable="true" layoutX="20.0" layoutY="60.0" prefHeight="140.0" prefWidth="560.0"
+              promptText="Signal ..." style="-fx-background-color: #e4afdf;" wrapText="true">
         <font>
             <Font size="14.0"/>
         </font>
     </TextArea>
 
-    <TextArea fx:id="id_taText" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
-              promptText="Text ..." style="-fx-color: green;">
+    <TextArea fx:id="id_taText" disable="true" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
+              promptText="Text ..." style="-fx-color: green;" wrapText="true">
         <font>
             <Font size="14.0"/>
         </font>

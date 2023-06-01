@@ -1,36 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
       prefWidth="600.0" style="-fx-background-color: #e4eaff;" xmlns="http://javafx.com/javafx/19"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hyterasignalcontrol.controllers.MainController">
     <children>
+
         <Pane prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #063970;">
             <children>
-                <Label layoutX="60.0" layoutY="22.0" text="HyteraSignalControl" textFill="WHITE">
+                <Label layoutX="25.0" layoutY="15.0" text="Hytera" textFill="WHITE">
                     <font>
-                        <Font name="Arial Bold" size="15.0"/>
+                        <Font name="Arial Bold Italic" size="24.0"/>
                     </font>
                 </Label>
+
+
+                <JFXRadioButton fx:id="id_rbOutputSystem" layoutX="200.0" layoutY="22.0" prefWidth="120.0"
+                                text="Uzatish rejimi" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Bold" size="14.0"/>
+                    </font>
+                </JFXRadioButton>
+                <JFXButton fx:id="id_btnSetting" layoutX="490.0" layoutY="12.0" prefHeight="25.0" prefWidth="102.0"
+                           style="-fx-background-color: #063970;" text="Setting" textFill="#e8e8e8">
+                    <ripplerFill>
+                        <LinearGradient>
+                            <stops>
+                                <Stop color="BLACK"/>
+                                <Stop color="#1d7499" offset="0.037800687285223365"/>
+                                <Stop color="WHITE" offset="1.0"/>
+                            </stops>
+                        </LinearGradient>
+                    </ripplerFill>
+                    <font>
+                        <Font name="Arial Bold Italic" size="14.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fx:id="id_ivSetting" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/setting_icon.png"/>
+                            </image>
+                        </ImageView>
+
+
+                    </graphic>
+                </JFXButton>
             </children>
         </Pane>
-        <JFXRadioButton fx:id="id_rbInputSystem" layoutX="440.0" layoutY="22.0" prefWidth="150.0"
+
+        <JFXRadioButton fx:id="id_rbInputSystem" layoutX="330.0" layoutY="22.0" prefWidth="150.0"
                         text="Qabul qilish rejimi" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="14.0"/>
             </font>
         </JFXRadioButton>
-        <JFXRadioButton fx:id="id_rbOutputSystem" layoutX="300.0" layoutY="22.0" prefWidth="120.0" text="Uzatish rejimi"
-                        textFill="WHITE">
-            <font>
-                <Font name="Arial Bold" size="14.0"/>
-            </font>
-        </JFXRadioButton>
+
+
         <Pane fx:id="id_Pane" layoutY="60.0" prefHeight="440.0" prefWidth="600.0"/>
+
+
     </children>
 </Pane>

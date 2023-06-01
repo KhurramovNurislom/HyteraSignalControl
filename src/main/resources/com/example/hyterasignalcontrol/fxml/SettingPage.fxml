@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.hyterasignalcontrol.controllers.SettingController">
-    <children>
-        <Button fx:id="id_btnStart" layoutX="82.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0"
-                prefWidth="80.0" text="Start"/>
-    </children>
+      prefWidth="600.0" style="-fx-background-color: #e4eaff;" xmlns="http://javafx.com/javafx/19"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hyterasignalcontrol.controllers.SettingController">
+    <TextField fx:id="id_tfAmplitude" layoutX="334.0" layoutY="60.0" promptText="amplituda"/>
+    <TextField fx:id="id_tfFrequency" layoutX="336.0" layoutY="134.0" promptText="chastota"/>
+    <TextField fx:id="id_tfSpaceTime" layoutX="336.0" layoutY="213.0" promptText="oraliq vaqt (ms)"/>
+    <JFXButton fx:id="id_btnApply" layoutX="410.0" layoutY="319.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Apply" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
+    <JFXButton fx:id="id_btnClear" layoutX="294.0" layoutY="319.0" prefHeight="25.0" prefWidth="80.0"
+               style="-fx-background-color: #063970;" text="Clear" textFill="#e8e8e8">
+        <ripplerFill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="BLACK"/>
+                    <Stop color="#1d7499" offset="0.037800687285223365"/>
+                    <Stop color="WHITE" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </ripplerFill>
+        <font>
+            <Font name="Arial Bold Italic" size="14.0"/>
+        </font>
+    </JFXButton>
 </Pane>

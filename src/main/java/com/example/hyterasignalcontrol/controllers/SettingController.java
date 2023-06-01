@@ -1,33 +1,63 @@
 package com.example.hyterasignalcontrol.controllers;
 
+import com.example.hyterasignalcontrol.Main;
+import com.example.hyterasignalcontrol.modules.SignalInfo;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class SettingController implements Initializable {
 
-    public Button id_btnStart;
+    public JFXButton id_btnApply;
+    public JFXButton id_btnClear;
+    public TextField id_tfAmplitude;
+    public TextField id_tfFrequency;
+    public TextField id_tfSpaceTime;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        id_btnStart.setOnAction(new EventHandler<ActionEvent>() {
+        id_btnApply.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
-
-                System.out.println("Bosildi...");
-
+                ApplyFunction();
+            }
+        });
+        id_btnClear.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ClearFunction();
             }
         });
     }
 
+    private void ApplyFunction() {
+        SignalInfo signalInfo = new SignalInfo();
+        signalInfo.setAmplitude(Integer.parseInt(id_tfAmplitude.getText()));
+        signalInfo.setSpaceTime(Integer.parseInt(id_tfSpaceTime.getText()));
+        signalInfo.setFrequency(Integer.parseInt(id_tfFrequency.getText()));
+        Main.setParam(signalInfo);
 
+        id_tfAmplitude.setDisable(true);
+        id_tfFrequency.setDisable(true);
+        id_tfSpaceTime.setDisable(true);
+
+    }
+
+    private void ClearFunction() {
+        id_tfAmplitude.clear();
+        id_tfFrequency.clear();
+        id_tfSpaceTime.clear();
+
+        id_tfAmplitude.setDisable(false);
+        id_tfFrequency.setDisable(false);
+        id_tfSpaceTime.setDisable(false);
+    }
 }
 
 

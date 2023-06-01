@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class FXMLLoaderMade {
-
     public Pane getPane(String fileName) throws IOException {
 
         URL fileURL = Main.class.getResource("fxml/" + fileName + ".fxml");
@@ -18,6 +17,4 @@ public class FXMLLoaderMade {
 
         return FXMLLoader.load(fileURL);
     }
-
-
 }

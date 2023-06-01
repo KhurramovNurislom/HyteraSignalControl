@@ -7,6 +7,9 @@ module com.example.hyterasignalcontrol {
     requires com.jfoenix;
     requires java.desktop;
 
+    exports com.example.hyterasignalcontrol.modules;
+    opens com.example.hyterasignalcontrol.modules to javafx.fxml;
+
     exports com.example.hyterasignalcontrol;
     opens com.example.hyterasignalcontrol to javafx.fxml;
 

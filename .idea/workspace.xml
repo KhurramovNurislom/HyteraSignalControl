@@ -5,28 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f807874-6533-4319-9f68-9c87c8309e6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/kerak/Complex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/kerak/FFT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/FXMLLoaderMade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/MainPage.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/lib/jackson-annotations-2.15.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/lib/jackson-core-2.15.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/lib/jackson-databind-2.15.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/lib/tritonus-share-0.3.7-2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/modules/SignalInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/utils/ByteEncode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/images/setting_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/info.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/SceneChooser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/FXMLLoaderMade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/FXMLLoaderMade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/css/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/css/Style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/ControlPage.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/MainPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/MainPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +62,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/user/Desktop/GitHub/HyteraSignalControl/src/main/resources/com/example/hyterasignalcontrol/fxml",
+    "last_opened_file_path": "C:/Users/user/Desktop/GitHub/HyteraSignalControl/src/main/resources/com/example/hyterasignalcontrol/images",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.41406816",
@@ -76,17 +71,40 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol\images" />
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol\fxml" />
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol\lib" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources" />
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol" />
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol\fxml" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.hyterasignalcontrol.utils" />
       <recent name="com.example.hyterasignalcontrol.services" />
       <recent name="com.example.hyterasignalcontrol" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.hyterasignalcontrol.Main" />
+      <module name="HyteraSignalControl" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.hyterasignalcontrol.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -101,5 +119,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
