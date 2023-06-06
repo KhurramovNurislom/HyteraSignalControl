@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -25,38 +26,29 @@ public class SettingController implements Initializable {
         id_btnApply.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ApplyFunction();
+                SignalInfo signalInfo = new SignalInfo();
+                signalInfo.setAmplitude(Integer.parseInt(id_tfAmplitude.getText()));
+                signalInfo.setSpaceTime(Integer.parseInt(id_tfSpaceTime.getText()));
+                signalInfo.setFrequency(Integer.parseInt(id_tfFrequency.getText()));
+                Main.setParam(signalInfo);
+
+                id_tfAmplitude.setDisable(true);
+                id_tfFrequency.setDisable(true);
+                id_tfSpaceTime.setDisable(true);
             }
         });
         id_btnClear.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ClearFunction();
+                id_tfAmplitude.clear();
+                id_tfFrequency.clear();
+                id_tfSpaceTime.clear();
+
+                id_tfAmplitude.setDisable(false);
+                id_tfFrequency.setDisable(false);
+                id_tfSpaceTime.setDisable(false);
             }
         });
-    }
-
-    private void ApplyFunction() {
-        SignalInfo signalInfo = new SignalInfo();
-        signalInfo.setAmplitude(Integer.parseInt(id_tfAmplitude.getText()));
-        signalInfo.setSpaceTime(Integer.parseInt(id_tfSpaceTime.getText()));
-        signalInfo.setFrequency(Integer.parseInt(id_tfFrequency.getText()));
-        Main.setParam(signalInfo);
-
-        id_tfAmplitude.setDisable(true);
-        id_tfFrequency.setDisable(true);
-        id_tfSpaceTime.setDisable(true);
-
-    }
-
-    private void ClearFunction() {
-        id_tfAmplitude.clear();
-        id_tfFrequency.clear();
-        id_tfSpaceTime.clear();
-
-        id_tfAmplitude.setDisable(false);
-        id_tfFrequency.setDisable(false);
-        id_tfSpaceTime.setDisable(false);
     }
 }
 
