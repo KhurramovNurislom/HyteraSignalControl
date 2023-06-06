@@ -5,23 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f807874-6533-4319-9f68-9c87c8309e6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/modules/SignalInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/utils/ByteEncode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/images/setting_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/info.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/SceneChooser.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/FXMLLoaderMade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/FXMLLoaderMade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/MainPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/MainPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,10 +49,10 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/user/Desktop/GitHub/HyteraSignalControl/src/main/resources/com/example/hyterasignalcontrol/images",
+    "last_opened_file_path": "C:/Users/user/Desktop/GitHub/HyteraSignalControl/src/main/java/com/example/hyterasignalcontrol/libCreateDocument/xmlbeans-5.0.2.jar",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.41406816",
+    "project.structure.side.proportion": "0.5582894",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
