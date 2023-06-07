@@ -87,28 +87,40 @@ public class OutputController implements Initializable {
 
                 /**********  Chastotali modulyatsiya  **********/
 //               System.out.println("kerak => k = " + k);
-               List<Integer> list = new ArrayList<Integer>();
-               int n;
-               for (char c : text.toCharArray()) {
-                   String string_number = Integer.toString(c);
-                   for (int i = 0; i < string_number.length(); i++) {
-                       list.add(Integer.parseInt(String.valueOf(string_number.charAt(i))));
-                   }
-                   list.add(10);
-               }
-               for (int t = 0; t < list.size(); t++) {
-                   n = list.get(t);
-                   try (SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(8000F, 8, 1, true, false))) {
-                       sdl.open(sdl.getFormat());
-                       sdl.start();
-                       for (int i = 0; i < DOT * 128; i++) {
-                           sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (n + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-                       }
-                       sdl.drain();
-                   } catch (LineUnavailableException e) {
-                       e.printStackTrace();
-                   }
-               }
+                List<Integer> list = new ArrayList<Integer>();
+                int n;
+                for (char c : text.toCharArray()) {
+                    String string_number = Integer.toString(c);
+                    for (int i = 0; i < string_number.length(); i++) {
+                        list.add(Integer.parseInt(String.valueOf(string_number.charAt(i))));
+                    }
+                    list.add(10);
+                }
+                int counter = 0;
+                int t = 0;
+
+
+                try (SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(8000F, 8, 1, true, false))) {
+                    sdl.open(sdl.getFormat());
+                    sdl.start();
+                    for (int i = 0; i < DOT * 128 * list.size(); i++) {
+
+                        counter++;
+                        if (counter != DOT * 128) {
+
+                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (list.get(t) + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
+                        } else {
+                            counter = 0;
+                            t++;
+                        }
+
+                    }
+                    sdl.drain();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+
+                }
 
 /**********  Amplituda modulyatsiya *******************/
 //                try {
