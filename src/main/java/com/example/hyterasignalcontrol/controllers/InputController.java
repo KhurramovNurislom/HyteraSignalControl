@@ -19,7 +19,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static org.apache.xmlbeans.impl.common.NameUtil.DOT;
 
 public class InputController implements Initializable {
     public JFXButton id_btnStart;
@@ -38,7 +42,9 @@ public class InputController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 id_btnStart.setDisable(true);
+
                 StartFunction();
+
                 id_btnStart.setDisable(false);
             }
         });
@@ -67,14 +73,39 @@ public class InputController implements Initializable {
         File fileTemp = null;
         fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
 
-//                            System.out.println(i + " = > " + fileTemp.getAbsolutePath());
 
         double[] t = waveData.extractAmplitudeFromFile(fileTemp);
         System.out.println(t.length);
 
         for (int k = 0; k < a.length; k++) {
-     a[k] = t[k * 10];
+            a[k] = t[k * 10];
         }
+
+        /******** Chastotali modulyatsiya uchun *********/
+
+        List<Integer> list = new ArrayList<Integer>();
+
+        int n = 0;
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < 128*DOT; j++) {
+                if (a[i] > 12130) {
+                    n++;
+                }
+                list.add(n);
+                n = 0;
+            }
+        }
+
+
+        /*************  Amplitudali modulyatsiya ***********/
+        int m = 12300;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > n) {
+                n++;
+            }
+        }
+
+
         System.out.println("O'lcham => " + t.length);
         writeExcell(a);
 

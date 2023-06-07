@@ -38,5 +38,17 @@
             <Font name="Arial Bold Italic" size="14.0" />
         </font>
     </JFXButton>
+   <Label layoutX="336.0" layoutY="14.0" text="Amplituda modulyatsiya" textFill="#0c0297">
+      <font>
+         <Font name="Arial Bold" size="14.0" />
+      </font>
+   </Label>
+   <TextField layoutX="57.0" layoutY="60.0" promptText="belgi uzunligi" />
+   <TextField layoutX="57.0" layoutY="134.0" promptText="chastota" />
+   <Label layoutX="57.0" layoutY="16.0" text="Chastota modulyatsiya" textFill="#0a228d">
+      <font>
+         <Font name="Arial Bold" size="14.0" />
+      </font>
+   </Label>
 
 </Pane>
