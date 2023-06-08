@@ -36,6 +36,8 @@ public class SettingController implements Initializable {
                 id_tfFrequency.setDisable(true);
                 id_tfSpaceTime.setDisable(true);
             }
+
+
         });
         id_btnClear.setOnAction(new EventHandler<ActionEvent>() {
             @Override

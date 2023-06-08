@@ -14,6 +14,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import javax.sound.sampled.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,6 +37,11 @@ public class InputController implements Initializable {
     double[] a = new double[44100];
     WaveData waveData = new WaveData();
 
+
+    public InputController() throws LineUnavailableException {
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -43,7 +50,13 @@ public class InputController implements Initializable {
             public void handle(ActionEvent event) {
                 id_btnStart.setDisable(true);
 
-                StartFunction();
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        StartFunction();
+                    }
+                };
+                thread.start();
 
                 id_btnStart.setDisable(false);
             }
@@ -70,46 +83,46 @@ public class InputController implements Initializable {
 
     private void StartFunction() {
 
-        File fileTemp = null;
-        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
+//        File fileTemp = null;
+//        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
 
 
-        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
-        System.out.println(t.length);
+//        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
+//        System.out.println(t.length);
+//
+//        for (int k = 0; k < a.length; k++) {
+//            a[k] = t[k * 10];
+//        }
+//
+//        /******** Chastotali modulyatsiya uchun *********/
+//
+//        List<Integer> list = new ArrayList<Integer>();
+//
+//        int n = 0;
+//        for (int i = 0; i < a.length; i++) {
+//            for (int j = 0; j < 128*DOT; j++) {
+//                if (a[i] > 12130) {
+//                    n++;
+//                }
+//                list.add(n);
+//                n = 0;
+//            }
+//        }
+//
+//
+//        /*************  Amplitudali modulyatsiya ***********/
+//        int m = 12300;
+//        for (int i = 0; i < a.length; i++) {
+//            if (a[i] > n) {
+//                n++;
+//            }
+//        }
+//
+//
+//        System.out.println("O'lcham => " + t.length);
+//        writeExcell(a);
 
-        for (int k = 0; k < a.length; k++) {
-            a[k] = t[k * 10];
-        }
-
-        /******** Chastotali modulyatsiya uchun *********/
-
-        List<Integer> list = new ArrayList<Integer>();
-
-        int n = 0;
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < 128*DOT; j++) {
-                if (a[i] > 12130) {
-                    n++;
-                }
-                list.add(n);
-                n = 0;
-            }
-        }
-
-
-        /*************  Amplitudali modulyatsiya ***********/
-        int m = 12300;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] > n) {
-                n++;
-            }
-        }
-
-
-        System.out.println("O'lcham => " + t.length);
-        writeExcell(a);
-
-
+        readWaveSignal();
     }
 
     private void StopFunction() {
@@ -169,5 +182,36 @@ public class InputController implements Initializable {
         /****   Excellga yozish tugadi */
     }
 
+    public void readWaveSignal() {
+        byte[] buffer = new byte[4092];
+        AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
+        DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+        TargetDataLine targetLine = null;
+        try {
+            targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
+            targetLine.open(audioFormat);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+        targetLine.start();
+        try {
 
+            int bytesRead = 0;
+            while (bytesRead != -1) {
+                bytesRead = targetLine.read(buffer, 0, buffer.length);
+
+
+                
+
+//                for (int i = 0; i < buffer.length; i++) {
+//                    System.out.println("buffer [" + i + "] = " + buffer[i]);
+//                }
+            }
+
+            targetLine.stop();
+            targetLine.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
