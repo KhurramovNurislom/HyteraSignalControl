@@ -183,7 +183,8 @@ public class InputController implements Initializable {
     }
 
     public void readWaveSignal() {
-        byte[] buffer = new byte[4092];
+        byte[] buffer = new byte[4096];
+        double[] asd = new double[4096];
         AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
         DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
         TargetDataLine targetLine = null;
@@ -197,16 +198,25 @@ public class InputController implements Initializable {
         try {
 
             int bytesRead = 0;
-            while (bytesRead != -1) {
-                bytesRead = targetLine.read(buffer, 0, buffer.length);
+//            while (bytesRead != -1) {
+//                bytesRead = targetLine.read(buffer, 0, buffer.length);
+
+                System.out.println(targetLine.read(buffer, 0, buffer.length));
+
+                for (int i = 0; i < buffer.length; i++) {
+                    System.out.println("buffer [" + i + "] = " + buffer[i]);
+                }
 
 
-                
+            asd = new WaveData().extractAmplitudeFromFile(buffer);
 
-//                for (int i = 0; i < buffer.length; i++) {
-//                    System.out.println("buffer [" + i + "] = " + buffer[i]);
+            System.out.println(asd.length);
+//
+//                for (int i = 0; i < bytesRead; i++) {
+//                    System.out.println("buffer [" + i + "] => " + buffer[i]);
+//                    System.out.println("asd [" + i + "] => " + asd[i]);
 //                }
-            }
+//            }
 
             targetLine.stop();
             targetLine.close();

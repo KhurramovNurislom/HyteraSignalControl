@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f807874-6533-4319-9f68-9c87c8309e6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/record.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AudioRecorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signal.wav" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
       <recent name="com.example.hyterasignalcontrol" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AudioRecorder">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="AudioRecorder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AudioRecorder" />
       <module name="HyteraSignalControl" />
@@ -99,8 +95,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AudioRecorder" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.AudioRecorder" />
       </list>
     </recent_temporary>
   </component>
