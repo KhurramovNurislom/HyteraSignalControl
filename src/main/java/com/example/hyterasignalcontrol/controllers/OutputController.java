@@ -103,12 +103,22 @@ public class OutputController implements Initializable {
                 try (SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(8000F, 8, 1, true, false))) {
                     sdl.open(sdl.getFormat());
                     sdl.start();
+                    /** Tanituvchi signal */
+                    for (int i = 0; i < DOT * 128 * 3; i++) {
+                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+                    }
+                    System.out.println("tanituvchi signal");
+
+                    /** Ma'lumot signali */
                     for (int i = 0; i < DOT * 128 * list.size(); i++) {
 
                         counter++;
                         if (counter != DOT * 128) {
 
-                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (list.get(t) + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+//                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (list.get(t) + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
+                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
 
                         } else {
                             counter = 0;
@@ -116,6 +126,15 @@ public class OutputController implements Initializable {
                         }
 
                     }
+
+                    /** tugatuvchi signal */
+                    for (int i = 0; i < DOT * 128 * 3; i++) {
+                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
+                    }
+                    System.out.println("tugatuvchi signal");
+
+
                     sdl.drain();
                 } catch (LineUnavailableException e) {
                     e.printStackTrace();
@@ -150,34 +169,34 @@ public class OutputController implements Initializable {
         id_taEncodeText.clear();
     }
 
-    /***********************  Signalni ijro etmasdan filega generatsiya qilish */
-
-    public void WaveGenerator(double n) throws LineUnavailableException {
-        // Audio formati
-        AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, true);
-        // AudioDataLine yaratish
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-        SourceDataLine line = null;
-        line = (SourceDataLine) AudioSystem.getLine(info);
-        line.open(format);
-        line.start();
-        // Signalni hosil qilish
-        byte[] buffer = new byte[(int) (duration * sampleRate)];
-        for (int i = 0; i < buffer.length; i++) {
-            double angle = 2.0 * Math.PI * frequency * i / sampleRate;
-            double sample = 0;
-            // Sinus signal
-            sample = amplitude * (n) * Math.sin(angle);
-//            System.out.println("asdasdad => " + Math.sin(angle));
-            // Kvadrat signal
-//             sample = (Math.sin(angle) > 0) ? amplitude : -amplitude;
-            // Uchburchak signal
-//             sample = (2 * amplitude / Math.PI) * Math.asin(Math.sin(angle));
-            buffer[i] = (byte) (sample * 127);
-        }
-        // Signalni ijro etish
-        line.write(buffer, 0, buffer.length);
-        line.drain();
-        line.close();
-    }
+//    /***********************  Signalni ijro etmasdan filega generatsiya qilish */
+//
+//    public void WaveGenerator(double n) throws LineUnavailableException {
+//        // Audio formati
+//        AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, true);
+//        // AudioDataLine yaratish
+//        DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+//        SourceDataLine line = null;
+//        line = (SourceDataLine) AudioSystem.getLine(info);
+//        line.open(format);
+//        line.start();
+//        // Signalni hosil qilish
+//        byte[] buffer = new byte[(int) (duration * sampleRate)];
+//        for (int i = 0; i < buffer.length; i++) {
+//            double angle = 2.0 * Math.PI * frequency * i / sampleRate;
+//            double sample = 0;
+//            // Sinus signal
+//            sample = amplitude * (n) * Math.sin(angle);
+////            System.out.println("asdasdad => " + Math.sin(angle));
+//            // Kvadrat signal
+////             sample = (Math.sin(angle) > 0) ? amplitude : -amplitude;
+//            // Uchburchak signal
+////             sample = (2 * amplitude / Math.PI) * Math.asin(Math.sin(angle));
+//            buffer[i] = (byte) (sample * 127);
+//        }
+//        // Signalni ijro etish
+//        line.write(buffer, 0, buffer.length);
+//        line.drain();
+//        line.close();
+//    }
 }

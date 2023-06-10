@@ -21,7 +21,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,13 +39,17 @@ public class InputController implements Initializable {
     public TextArea id_taSignal;
     public TextArea id_taText;
 
+
+    AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
+    DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+    final TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
+
+    boolean bool = false;
     double[] a = new double[44100];
     WaveData waveData = new WaveData();
 
-
     public InputController() throws LineUnavailableException {
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,6 +58,7 @@ public class InputController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 id_btnStart.setDisable(true);
+                bool = true;
 
                 Thread thread = new Thread() {
                     @Override
@@ -66,7 +76,22 @@ public class InputController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 id_btnStop.setDisable(true);
-                StopFunction();
+                bool = false;
+                File papka = new File("C:\\Worker");
+                File[] files = papka.listFiles();
+
+                // fayllar bo'sh emasligini tekshirish
+                if (files != null && files.length > 0) {
+                    // fayllar ro'yxatini chiqarish
+                    System.out.println("Papka ichida quyidagi fayllar mavjud:");
+                    for (File file : files) {
+                        System.out.println(file.getName());
+                    }
+                } else {
+                    System.out.println("Papka ichida fayl mavjud emas.");
+                }
+
+
                 id_btnStop.setDisable(false);
             }
         });
@@ -82,7 +107,7 @@ public class InputController implements Initializable {
     }
 
     private void StartFunction() {
-
+        writeFile();
 //        File fileTemp = null;
 //        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
 
@@ -122,16 +147,102 @@ public class InputController implements Initializable {
 //        System.out.println("O'lcham => " + t.length);
 //        writeExcell(a);
 
-        readWaveSignal();
+//        readWaveSignal();
     }
 
-    private void StopFunction() {
-
-    }
 
     private void ClearFunction() {
         id_taText.clear();
         id_taSignal.clear();
+    }
+
+    private void writeFile() {
+
+        /** Ishchi papkaning mavjudligi bilan ishlash*/
+        File papka = new File("C:\\Worker");
+        if (!papka.exists() && papka.isDirectory()) {
+            new File("C:\\Worker").mkdir();
+        }
+
+/** Ma'lumotni audio shaklda yozib oladi*/
+        while (bool) {
+            Thread audioRecorderThread = new Thread() {
+                public void run() {
+                    /**Audio File bilan ishlash*/
+                    try {
+                        targetLine.open();
+                        targetLine.start();
+                        AudioInputStream recordingStream = new AudioInputStream(targetLine);
+                        File outputFile = new File("C:\\Worker\\Record_" + new SimpleDateFormat("HHmmss").format(new Date()) + ".wav");
+                        AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
+                    } catch (LineUnavailableException | IOException ex) {
+                        System.out.println(ex);
+                    }
+                }
+            };
+            audioRecorderThread.start();
+
+            try {
+                new Thread().sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            targetLine.stop();
+            targetLine.close();
+            System.out.println("yozish tugadi");
+        }
+
+
+
+
+    }
+
+    private void RecordAudio() {
+
+    }
+
+
+    public void readWaveSignal() {
+        byte[] buffer = new byte[4096];
+        double[] asd = new double[4096];
+        AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
+        DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+        TargetDataLine targetLine = null;
+        try {
+            targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
+            targetLine.open(audioFormat);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+        targetLine.start();
+        try {
+
+            int bytesRead = 0;
+//            while (bytesRead != -1) {
+//                bytesRead = targetLine.read(buffer, 0, buffer.length);
+
+            System.out.println(targetLine.read(buffer, 0, buffer.length));
+
+            for (int i = 0; i < buffer.length; i++) {
+                System.out.println("buffer [" + i + "] = " + buffer[i]);
+            }
+
+
+            asd = new WaveData().extractAmplitudeFromFile(buffer);
+
+            System.out.println(asd.length);
+//
+//                for (int i = 0; i < bytesRead; i++) {
+//                    System.out.println("buffer [" + i + "] => " + buffer[i]);
+//                    System.out.println("asd [" + i + "] => " + asd[i]);
+//                }
+//            }
+
+            targetLine.stop();
+            targetLine.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 
@@ -156,9 +267,7 @@ public class InputController implements Initializable {
 
 
         fileChooser.setInitialFileName("Topigan natijalar");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Excel hujjatlar", "*.xls")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel hujjatlar", "*.xls"));
         fileChooser.setTitle("Natijalarni Excelda saqlash");
 
         try {
@@ -180,48 +289,5 @@ public class InputController implements Initializable {
             e.printStackTrace();
         }
         /****   Excellga yozish tugadi */
-    }
-
-    public void readWaveSignal() {
-        byte[] buffer = new byte[4096];
-        double[] asd = new double[4096];
-        AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
-        DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
-        TargetDataLine targetLine = null;
-        try {
-            targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
-            targetLine.open(audioFormat);
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-        targetLine.start();
-        try {
-
-            int bytesRead = 0;
-//            while (bytesRead != -1) {
-//                bytesRead = targetLine.read(buffer, 0, buffer.length);
-
-                System.out.println(targetLine.read(buffer, 0, buffer.length));
-
-                for (int i = 0; i < buffer.length; i++) {
-                    System.out.println("buffer [" + i + "] = " + buffer[i]);
-                }
-
-
-            asd = new WaveData().extractAmplitudeFromFile(buffer);
-
-            System.out.println(asd.length);
-//
-//                for (int i = 0; i < bytesRead; i++) {
-//                    System.out.println("buffer [" + i + "] => " + buffer[i]);
-//                    System.out.println("asd [" + i + "] => " + asd[i]);
-//                }
-//            }
-
-            targetLine.stop();
-            targetLine.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 }
