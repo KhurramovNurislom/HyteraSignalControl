@@ -5,6 +5,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 
@@ -26,20 +28,17 @@ public class WaveData {
     public WaveData() {
     }
 
-    public double[] extractAmplitudeFromFile(byte[] arrBuffer) {
-//        try {
-////             create file input stream
-//            FileInputStream fis = new FileInputStream(wavFile);
-//            // create byte array from file
-//            arrFile = new byte[(int) wavFile.length()];
-//            fis.read(arrFile);
-//            fis.read(arrFile);
-//        } catch (Exception e) {
-//            System.out.println("SomeException : " + e.toString());
-//        }
-//        return arrBuffer;
-
-        return extractAmplitudeFromFileByteArray(arrBuffer);
+    public double[] extractAmplitudeFromFile(File wavFile) {
+        try {
+//             create file input stream
+            FileInputStream fis = new FileInputStream(wavFile);
+            // create byte array from file
+            arrFile = new byte[(int) wavFile.length()];
+            fis.read(arrFile);
+        } catch (Exception e) {
+            System.out.println("SomeException : " + e.toString());
+        }
+        return extractAmplitudeFromFileByteArray(arrFile);
     }
 
     public double[] extractAmplitudeFromFileByteArray(byte[] arrFile) {

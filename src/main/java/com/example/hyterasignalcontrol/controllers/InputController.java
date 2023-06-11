@@ -45,7 +45,7 @@ public class InputController implements Initializable {
     final TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
 
     boolean bool = false;
-    double[] a = new double[44100];
+
     WaveData waveData = new WaveData();
 
     public InputController() throws LineUnavailableException {
@@ -90,8 +90,6 @@ public class InputController implements Initializable {
                 } else {
                     System.out.println("Papka ichida fayl mavjud emas.");
                 }
-
-
                 id_btnStop.setDisable(false);
             }
         });
@@ -102,40 +100,19 @@ public class InputController implements Initializable {
                 id_btnClear.setDisable(true);
                 ClearFunction();
 
-
-                id_btnStop.setDisable(true);
-                bool = false;
-                File papka = new File("D:\\Worker");
-                File[] files = papka.listFiles();
-
-                // fayllar bo'sh emasligini tekshirish
-                if (files != null && files.length > 0) {
-                    // fayllar ro'yxatini chiqarish
-                    System.out.println("Papka ichida quyidagi fayllar mavjud:");
-                    for (File file : files) {
-                        System.out.println(file.getName());
-                    }
-                } else {
-                    System.out.println("Papka ichida fayl mavjud emas.");
-                }
-
-
-                id_btnStop.setDisable(false);
-
-
                 id_btnClear.setDisable(false);
             }
         });
     }
 
     private void StartFunction() {
-        writeFile();
-        try {
-            new Thread().sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        RecordAudio();
+//        writeFile();
+//        try {
+//            new Thread().sleep(10000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        ReadAudio();
     }
 
 
@@ -181,16 +158,17 @@ public class InputController implements Initializable {
         }
     }
 
-    private void RecordAudio() {
+    private void ReadAudio() {
 
 
-        File fileTemp = null;
-        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
+        File fileTemp = new File("C:\\Worker\\Record_215828.wav"); /**+ readFolder.ReadFileName()**/
 
+        System.out.println(fileTemp.isFile());
 
-//        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
-//        System.out.println(t.length);
-//
+        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
+        System.out.println(t.length);
+//        System.out.println((int) Math.floor(t.length / 10));
+//        double[] a = new double[(int) Math.floor(t.length / 10)];
 //        for (int k = 0; k < a.length; k++) {
 //            a[k] = t[k * 10];
 //        }
@@ -255,7 +233,7 @@ public class InputController implements Initializable {
             }
 
 
-            asd = new WaveData().extractAmplitudeFromFile(buffer);
+//            asd = new WaveData().extractAmplitudeFromFile(buffer);
 
             System.out.println(asd.length);
 //
