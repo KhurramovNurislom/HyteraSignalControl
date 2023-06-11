@@ -1,11 +1,9 @@
 import javax.sound.sampled.*;
 
 public class TestMain {
-
     private static final int DOT = 10, FREQ = 800;
 
     public static void main(String[] args) throws LineUnavailableException {
-
 
 /*******************************************************************************************************************************************************************/
 
@@ -13,15 +11,11 @@ public class TestMain {
             sdl.open(sdl.getFormat());
             sdl.start();
 
-
             for (int k = 0; k < 10000; k++) {
                 for (double l = 1; l < 10; l++) {
                     for (int i = 0; i < DOT * 128; i++) {
 //                      WaveGenerator(l);
-                        sdl.write(new byte[]{(byte) (Math.sin(i / (8000F / FREQ) * 2.0 * Math.PI) * (0.1*
-
-
-                                l)*127.0)}, 0, 1);
+                        sdl.write(new byte[]{(byte) (Math.sin(i / (8000F / FREQ) * 2.0 * Math.PI) * (0.1 * l) * 127.0)}, 0, 1);
                     }
                 }
             }

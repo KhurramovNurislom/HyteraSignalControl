@@ -22,7 +22,7 @@ public class OutputController implements Initializable {
     public JFXButton id_btnClear;
 
     //    private boolean bool;
-    private static final int DOT = 10, FREQ = 800;
+    private static final int DOT = 20, FREQ = 800;
 
     // Signal parametric
     float frequency = 440; // signal chastotasi (Hz)
@@ -68,119 +68,75 @@ public class OutputController implements Initializable {
         });
     }
 
-    private void SendFunction(String text) {
 
+    private void SendFunction(String text) {
         thread = new Thread() {
             @Override
             public void run() {
 
-
-//                int k = 0;
-//                for (char c : text.toCharArray()) {
-//                    String string_number = Integer.toString(c);
-//                    for (int i = 0; i < string_number.length(); i++) {
-//                        k++;
-//                    }
-//                    k++;
-//                }
-
-
-                /**********  Chastotali modulyatsiya  **********/
-//               System.out.println("kerak => k = " + k);
+                /**  Belgi bilan ishlash */
                 List<Integer> list = new ArrayList<Integer>();
-                int n;
-                for (char c : text.toCharArray()) {
-                    String string_number = Integer.toString(c);
-                    for (int i = 0; i < string_number.length(); i++) {
-                        list.add(Integer.parseInt(String.valueOf(string_number.charAt(i))));
-                    }
-                    list.add(10);
-                }
-                int counter = 0;
-                int t = 0;
 
+                for (char c : text.toCharArray()) {
+                    String string_number = Integer.toBinaryString(c);
+//                    System.out.println("belgining binar ko'rinishi => " + string_number);
+                    String newCharBinary = "";
+                    int bitCounter = 0;
+                    for (char ch : string_number.toCharArray()) {
+                        bitCounter++;
+                    }
+                    for (int i = 0; i < 8 - bitCounter; i++) {
+                        newCharBinary += "0";
+                    }
+                    newCharBinary += string_number;
+                    System.out.println("old qismi 0 bilan to'ldirilib standart 8 xonaga keltirildi => " + newCharBinary);
+
+                    for (char b : newCharBinary.toCharArray()) {
+                        if (b == 48)
+                            list.add(0);
+                        else list.add(1);
+                    }
+                }
+
+/****** textni binarniyda ko'rish ishlamadi *****/
+
+                /** Signal bilan ishlash */
 
                 try (SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(8000F, 8, 1, true, false))) {
                     sdl.open(sdl.getFormat());
                     sdl.start();
 
+                    int textSize = DOT * 128 * list.size();
+                    int bitSize = DOT * 128;
 
-                    for (int k = 0; k < 10000; k++) {
-                        for (int l = 1; l < 13; l++) {
-                            for (int i = 0; i < DOT * 128; i++) {
-                                sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * l) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-                            }
+                    int k = 0;
+                    int n = 0;
+                    int m = 0;
+
+                    String te = list.get(0).toString();
+
+                    while (k < textSize) {
+                        if (n < bitSize) {
+                            sdl.write(new byte[]{(byte) (Math.sin((k * list.get(m)) / (8000F / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+                            k++;
+                            n++;
+                        } else {
+                            n = 0;
+                            m++;
+                            te += list.get(m);
+                            id_taEncodeText.setText(te);
                         }
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    /** Tanituvchi signal */
-//                    for (int i = 0; i < DOT * 128 * 3; i++) {
-//                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-//                    }
-//                    System.out.println("tanituvchi signal");
-
-                    /** Ma'lumot signali */
-//                    for (int i = 0; i < DOT * 128 * list.size(); i++) {
-//
-//                        counter++;
-//                        if (counter != DOT * 128) {
-//
-////                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (list.get(t) + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-//
-//                            sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F+ list.get(t)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-//
-//
-//                        } else {
-//                            counter = 0;
-//                            t++;
-//                        }
-//
-//                    }
-
-//                    /** tugatuvchi signal */
-//                    for (int i = 0; i < DOT * 128 * 3; i++) {
-//                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
-//
-//                    }
-                    System.out.println("tugatuvchi signal");
-
-
                     sdl.drain();
+                    System.out.println("TUGADI");
                 } catch (LineUnavailableException e) {
                     e.printStackTrace();
-
                 }
-
-/**********  Amplituda modulyatsiya *******************/
-//                try {
-//                    for (char c : text.toCharArray()) {
-//                        String string_number = Integer.toString(c);
-//                        for (int i = 0; i < string_number.length(); i++) {
-//                            WaveGenerator(Integer.parseInt(String.valueOf(string_number.charAt(i))));
-//                        }
-//                        WaveGenerator(10);
-//                    }
-//                } catch (LineUnavailableException e) {
-//                    throw new RuntimeException(e);
-//                }
-/*****************/
-
             }
         };
         thread.start();
     }
+
 
     private void StopFunction() {
 //        sound = false;
@@ -190,6 +146,8 @@ public class OutputController implements Initializable {
         id_taText.clear();
         id_taEncodeText.clear();
     }
+}
+
 
 //    /***********************  Signalni ijro etmasdan filega generatsiya qilish */
 //
@@ -221,4 +179,103 @@ public class OutputController implements Initializable {
 //        line.drain();
 //        line.close();
 //    }
-}
+
+
+/*********Send function ishlash kerak *********/
+
+//    private void SendFunction(String text) {
+//
+//        thread = new Thread() {
+//            @Override
+//            public void run() {
+//
+////                int k = 0;
+////                for (char c : text.toCharArray()) {
+////                    String string_number = Integer.toString(c);
+////                    for (int i = 0; i < string_number.length(); i++) {
+////                        k++;
+////                    }
+////                    k++;
+////                }
+//
+//                /**********  Chastotali modulyatsiya  **********/
+////               System.out.println("kerak => k = " + k);
+//                List<Integer> list = new ArrayList<Integer>();
+//                int n;
+//                for (char c : text.toCharArray()) {
+//                    String string_number = Integer.toString(c);
+//                    for (int i = 0; i < string_number.length(); i++) {
+//                        list.add(Integer.parseInt(String.valueOf(string_number.charAt(i))));
+//                    }
+//                    list.add(10);
+//                }
+//                int counter = 0;
+//                int t = 0;
+//
+//
+//                try (SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(8000F, 8, 1, true, false))) {
+//                    sdl.open(sdl.getFormat());
+//                    sdl.start();
+//
+//
+//                    for (int k = 0; k < 10000; k++) {
+//                        for (int l = 1; l < 13; l++) {
+//                            for (int i = 0; i < DOT * 128; i++) {
+//                                sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * l) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+//                            }
+//                        }
+//                    }
+//
+//
+//                    /** Tanituvchi signal */
+////                    for (int i = 0; i < DOT * 128 * 3; i++) {
+////                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+////                    }
+////                    System.out.println("tanituvchi signal");
+//
+//                    /** Ma'lumot signali */
+//            for (int i = 0; i < DOT * 128 * list.size(); i++) {
+//
+//                counter++;
+//                if (counter != DOT * 128) {
+
+//                      sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * (list.get(t) + 1)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
+//                    sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F+ list.get(t)) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+
+//                } else {
+//                    counter = 0;
+//                    t++;
+//                }
+//            }
+
+////                    /** tugatuvchi signal */
+////                    for (int i = 0; i < DOT * 128 * 3; i++) {
+////                        sdl.write(new byte[]{(byte) (Math.sin(i / ((8000F * 20) / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
+////
+////                    }
+//                    System.out.println("tugatuvchi signal");
+//                    sdl.drain();
+//                } catch (LineUnavailableException e) {
+//                    e.printStackTrace();
+//
+//                }
+//
+///**********  Amplituda modulyatsiya *******************/
+//                try {
+//                    for (char c : text.toCharArray()) {
+//                        String string_number = Integer.toString(c);
+//                        for (int i = 0; i < string_number.length(); i++) {
+//                            WaveGenerator(Integer.parseInt(String.valueOf(string_number.charAt(i))));
+//                        }
+//                        WaveGenerator(10);
+//                    }
+//                } catch (LineUnavailableException e) {
+//                    throw new RuntimeException(e);
+//                }
+///*****************/
+//
+//            }
+//        };
+//        thread.start();
+//    }

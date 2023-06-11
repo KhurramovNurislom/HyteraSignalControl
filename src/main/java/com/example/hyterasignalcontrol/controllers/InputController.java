@@ -77,7 +77,7 @@ public class InputController implements Initializable {
             public void handle(ActionEvent event) {
                 id_btnStop.setDisable(true);
                 bool = false;
-                File papka = new File("C:\\Worker");
+                File papka = new File("D:\\Worker");
                 File[] files = papka.listFiles();
 
                 // fayllar bo'sh emasligini tekshirish
@@ -101,6 +101,28 @@ public class InputController implements Initializable {
             public void handle(ActionEvent event) {
                 id_btnClear.setDisable(true);
                 ClearFunction();
+
+
+                id_btnStop.setDisable(true);
+                bool = false;
+                File papka = new File("D:\\Worker");
+                File[] files = papka.listFiles();
+
+                // fayllar bo'sh emasligini tekshirish
+                if (files != null && files.length > 0) {
+                    // fayllar ro'yxatini chiqarish
+                    System.out.println("Papka ichida quyidagi fayllar mavjud:");
+                    for (File file : files) {
+                        System.out.println(file.getName());
+                    }
+                } else {
+                    System.out.println("Papka ichida fayl mavjud emas.");
+                }
+
+
+                id_btnStop.setDisable(false);
+
+
                 id_btnClear.setDisable(false);
             }
         });
@@ -108,46 +130,12 @@ public class InputController implements Initializable {
 
     private void StartFunction() {
         writeFile();
-//        File fileTemp = null;
-//        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
-
-
-//        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
-//        System.out.println(t.length);
-//
-//        for (int k = 0; k < a.length; k++) {
-//            a[k] = t[k * 10];
-//        }
-//
-//        /******** Chastotali modulyatsiya uchun *********/
-//
-//        List<Integer> list = new ArrayList<Integer>();
-//
-//        int n = 0;
-//        for (int i = 0; i < a.length; i++) {
-//            for (int j = 0; j < 128*DOT; j++) {
-//                if (a[i] > 12130) {
-//                    n++;
-//                }
-//                list.add(n);
-//                n = 0;
-//            }
-//        }
-//
-//
-//        /*************  Amplitudali modulyatsiya ***********/
-//        int m = 12300;
-//        for (int i = 0; i < a.length; i++) {
-//            if (a[i] > n) {
-//                n++;
-//            }
-//        }
-//
-//
-//        System.out.println("O'lcham => " + t.length);
-//        writeExcell(a);
-
-//        readWaveSignal();
+        try {
+            new Thread().sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        RecordAudio();
     }
 
 
@@ -159,9 +147,9 @@ public class InputController implements Initializable {
     private void writeFile() {
 
         /** Ishchi papkaning mavjudligi bilan ishlash*/
-        File papka = new File("C:\\Worker");
+        File papka = new File("D:\\Worker");
         if (!papka.exists() && papka.isDirectory()) {
-            new File("C:\\Worker").mkdir();
+            new File("D:\\Worker").mkdir();
         }
 
 /** Ma'lumotni audio shaklda yozib oladi*/
@@ -173,7 +161,7 @@ public class InputController implements Initializable {
                         targetLine.open();
                         targetLine.start();
                         AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                        File outputFile = new File("C:\\Worker\\Record_" + new SimpleDateFormat("HHmmss").format(new Date()) + ".wav");
+                        File outputFile = new File("D:\\Worker\\Record_" + new SimpleDateFormat("HHmmss").format(new Date()) + ".wav");
                         AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
                     } catch (LineUnavailableException | IOException ex) {
                         System.out.println(ex);
@@ -191,13 +179,52 @@ public class InputController implements Initializable {
             targetLine.close();
             System.out.println("yozish tugadi");
         }
-
-
-
-
     }
 
     private void RecordAudio() {
+
+
+        File fileTemp = null;
+        fileTemp = new File("signal.wav"); /**+ readFolder.ReadFileName()**/
+
+
+//        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
+//        System.out.println(t.length);
+//
+//        for (int k = 0; k < a.length; k++) {
+//            a[k] = t[k * 10];
+//        }
+
+//        /******** Chastotali modulyatsiya uchun *********/
+
+//        List<Integer> list = new ArrayList<Integer>();
+//
+//        int n = 0;
+//        for (int i = 0; i < a.length; i++) {
+//            for (int j = 0; j < 128*DOT; j++) {
+//                if (a[i] > 12130) {
+//                    n++;
+//                }
+//                list.add(n);
+//                n = 0;
+//            }
+//        }
+
+
+//        /*************  Amplitudali modulyatsiya ***********/
+//        int m = 12300;
+//        for (int i = 0; i < a.length; i++) {
+//            if (a[i] > n) {
+//                n++;
+//            }
+//        }
+//
+//
+//        System.out.println("O'lcham => " + t.length);
+//        writeExcell(a);
+//
+//        readWaveSignal();
+
 
     }
 
