@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import javax.crypto.spec.PSource;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
@@ -40,9 +41,9 @@ public class InputController implements Initializable {
     public TextArea id_taText;
 
 
-    AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
-    DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
-    final TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
+//    AudioFormat audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, false);
+//    DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+//    final TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(dataInfo);
 
     boolean bool = false;
 
@@ -63,7 +64,24 @@ public class InputController implements Initializable {
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
-                        StartFunction();
+
+                        ReadAudio(new File("C:\\Worker\\Record_215638.wav"));
+//                        File papka = new File("C:\\Worker");
+//                        File[] files = papka.listFiles();
+//
+//                        // fayllar bo'sh emasligini tekshirish
+//                        if (files != null && files.length > 0) {
+//                            // fayllar ro'yxatini chiqarish
+//                            System.out.println("Papka ichida quyidagi fayllar mavjud:");
+//                            for (File file : files) {
+//                                System.out.println(file.getName());
+//                                ReadAudio(file);
+//                            }
+//                        } else {
+//                            System.out.println("Papka ichida fayl mavjud emas.");
+//                        }
+
+
                     }
                 };
                 thread.start();
@@ -77,19 +95,7 @@ public class InputController implements Initializable {
             public void handle(ActionEvent event) {
                 id_btnStop.setDisable(true);
                 bool = false;
-                File papka = new File("D:\\Worker");
-                File[] files = papka.listFiles();
 
-                // fayllar bo'sh emasligini tekshirish
-                if (files != null && files.length > 0) {
-                    // fayllar ro'yxatini chiqarish
-                    System.out.println("Papka ichida quyidagi fayllar mavjud:");
-                    for (File file : files) {
-                        System.out.println(file.getName());
-                    }
-                } else {
-                    System.out.println("Papka ichida fayl mavjud emas.");
-                }
                 id_btnStop.setDisable(false);
             }
         });
@@ -107,12 +113,14 @@ public class InputController implements Initializable {
 
     private void StartFunction() {
 //        writeFile();
+
 //        try {
 //            new Thread().sleep(10000);
 //        } catch (InterruptedException e) {
 //            throw new RuntimeException(e);
 //        }
-        ReadAudio();
+
+//        ReadAudio();
     }
 
 
@@ -121,72 +129,115 @@ public class InputController implements Initializable {
         id_taSignal.clear();
     }
 
-    private void writeFile() {
+//    private void writeFile() {
+//
+//        /** Ishchi papkaning mavjudligi bilan ishlash*/
+//        File papka = new File("D:\\Worker");
+//        if (!papka.exists() && papka.isDirectory()) {
+//            new File("D:\\Worker").mkdir();
+//        }
+//
+///** Ma'lumotni audio shaklda yozib oladi*/
+//        while (bool) {
+//            Thread audioRecorderThread = new Thread() {
+//                public void run() {
+//                    /**Audio File bilan ishlash*/
+//                    try {
+//                        targetLine.open();
+//                        targetLine.start();
+//                        AudioInputStream recordingStream = new AudioInputStream(targetLine);
+//                        File outputFile = new File("D:\\Worker\\Record_" + new SimpleDateFormat("HHmmss").format(new Date()) + ".wav");
+//                        AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
+//                    } catch (LineUnavailableException | IOException ex) {
+//                        System.out.println(ex);
+//                    }
+//                }
+//            };
+//            audioRecorderThread.start();
+//
+//            try {
+//                new Thread().sleep(5000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            targetLine.stop();
+//            targetLine.close();
+//            System.out.println("yozish tugadi");
+//        }
+//    }
 
-        /** Ishchi papkaning mavjudligi bilan ishlash*/
-        File papka = new File("D:\\Worker");
-        if (!papka.exists() && papka.isDirectory()) {
-            new File("D:\\Worker").mkdir();
-        }
-
-/** Ma'lumotni audio shaklda yozib oladi*/
-        while (bool) {
-            Thread audioRecorderThread = new Thread() {
-                public void run() {
-                    /**Audio File bilan ishlash*/
-                    try {
-                        targetLine.open();
-                        targetLine.start();
-                        AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                        File outputFile = new File("D:\\Worker\\Record_" + new SimpleDateFormat("HHmmss").format(new Date()) + ".wav");
-                        AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile);
-                    } catch (LineUnavailableException | IOException ex) {
-                        System.out.println(ex);
-                    }
-                }
-            };
-            audioRecorderThread.start();
-
-            try {
-                new Thread().sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            targetLine.stop();
-            targetLine.close();
-            System.out.println("yozish tugadi");
-        }
-    }
-
-    private void ReadAudio() {
+    private void ReadAudio(File file) {
 
 
-        File fileTemp = new File("C:\\Worker\\Record_215828.wav"); /**+ readFolder.ReadFileName()**/
+        File fileTemp = file;// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
 
         System.out.println(fileTemp.isFile());
 
         double[] t = waveData.extractAmplitudeFromFile(fileTemp);
+
         System.out.println(t.length);
-//        System.out.println((int) Math.floor(t.length / 10));
-//        double[] a = new double[(int) Math.floor(t.length / 10)];
-//        for (int k = 0; k < a.length; k++) {
-//            a[k] = t[k * 10];
-//        }
 
-//        /******** Chastotali modulyatsiya uchun *********/
+        System.out.println((int) Math.floor(t.length / 10));
 
-//        List<Integer> list = new ArrayList<Integer>();
-//
-//        int n = 0;
-//        for (int i = 0; i < a.length; i++) {
-//            for (int j = 0; j < 128*DOT; j++) {
-//                if (a[i] > 12130) {
-//                    n++;
-//                }
-//                list.add(n);
-//                n = 0;
-//            }
-//        }
+        double[] a = new double[(int) Math.floor(t.length / 10)];
+
+
+        /**Signalga ishlov berish :) ajoyib narsa */
+        for (int k = 0; k < a.length; k++) {
+            if (Math.abs(t[k * 10]) > 5000) {
+                a[k] = 10;
+            } else {
+                a[k] = 0;
+            }
+        }
+
+
+        /******** Chastotali modulyatsiya uchun *********/
+
+        List<Integer> listYu = new ArrayList<Integer>();
+        List<Integer> listPas = new ArrayList<Integer>();
+
+        int nYuq = 0;
+        int nPas = 0;
+
+        int k = 0;
+
+        /** Demak Record_215628 signalniki */
+//        int i = 570; i < 40465; i++
+
+        for (int i = 1000; i < 40465; i++) {
+
+            if (k < 2800) {
+                if (a[i] == 10) {
+                    nYuq++;
+                } else {
+                    nPas++;
+                }
+                k++;
+            } else {
+                k = 0;
+
+                listYu.add(nYuq);
+                listPas.add(nPas);
+                nYuq = 0;
+                nPas = 0;
+            }
+
+
+        }
+
+        System.out.println(listYu);
+        System.out.println(listPas);
+
+        for (int i = 0; i < listYu.size(); i++) {
+            if (listYu.get(i) > listPas.get(i)) {
+                System.out.print(1);
+            } else {
+                System.out.print(0);
+            }
+        }
+
+        writeExcell(a);
 
 
 //        /*************  Amplitudali modulyatsiya ***********/
@@ -268,18 +319,10 @@ public class InputController implements Initializable {
 
 
         FileOutputStream fileOut = null;
-        FileChooser fileChooser = new FileChooser();
-
-
-        fileChooser.setInitialFileName("Topigan natijalar");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel hujjatlar", "*.xls"));
-        fileChooser.setTitle("Natijalarni Excelda saqlash");
-
         try {
-            File file1 = fileChooser.showSaveDialog(new Stage());
-            fileOut = new FileOutputStream(file1.getAbsolutePath());
+            fileOut = new FileOutputStream("C:\\ishchi\\test.xls");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 
