@@ -1,7 +1,7 @@
 import javax.sound.sampled.*;
 
 public class TestMain {
-    private static final int DOT = 10, FREQ = 800;
+    private static final int DOT = 100, FREQ = 800;
 
     public static void main(String[] args) throws LineUnavailableException {
 

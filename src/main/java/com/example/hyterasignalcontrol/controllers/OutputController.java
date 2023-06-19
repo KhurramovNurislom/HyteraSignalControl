@@ -32,6 +32,7 @@ public class OutputController implements Initializable {
 
     public static Thread thread;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         id_btnSend.setOnAction(new EventHandler<ActionEvent>() {

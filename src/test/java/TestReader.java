@@ -17,168 +17,249 @@ public class TestReader {
     public static void main(String[] args) {
 
 
+//        File papka = new File("C:\\SignalControl\\4 800\\Record_172834.wav");
         File papka = new File("C:\\Worker");
-        File[] files = papka.listFiles();
+//        File[] files = papka.listFiles();
 
         // fayllar bo'sh emasligini tekshirish
-        if (files != null && files.length > 0) {
-            // fayllar ro'yxatini chiqarish
-            System.out.println("Papka ichida quyidagi fayllar mavjud:");
-            ReadAudio(files);
-            for (File file : files) {
-                System.out.println(file.getName());
+//        if (files != null && files.length > 0) {
+//            // fayllar ro'yxatini chiqarish
+//            System.out.println("Papka ichida quyidagi fayllar mavjud:");
+//            ReadAudio(files);
+//            for (File file : files) {
+//                System.out.println(file.getName());
+//
+//            }
+//        } else {
+//            System.out.println("Papka ichida fayl mavjud emas.");
+//        }
 
-            }
-        } else {
-            System.out.println("Papka ichida fayl mavjud emas.");
-        }
-    }
-
-    private static void ReadAudio(File[] files) {
+        int belgiUzunligi = 566; /** DOT=4, FREQ=800 bo'lganda bitta belgining bytedagi uzunligi */
 
         WaveData waveData = new WaveData();
-
-        int qoldiq;
-
-        double[] t;
-        double[] a;
-
-        int flag = 0;
-
-        int nYuq;
-        int nPas;
-
+        double[] t = waveData.extractAmplitudeFromFile(papka);
+        double[] a = SignalgaIshlovBerish(t);
 
         List<Integer> listYu = new ArrayList<>();
         List<Integer> listPas = new ArrayList<>();
 
-        List<Integer> listOraliq = new ArrayList<>();
+        System.out.println(t.length);
+        System.out.println(a.length);
+
+        int nYuq = 0;
+        int nPas = 0;
+
+        for (int i = 11510; i < 11510 + 2*belgiUzunligi; i++) {
+            nYuq += a[i];
+        }
+        System.out.println(nYuq);
+
+
+//        /** boshini aniqlash */
+//        int boshi = 0;
+//        for (int i = 0; i < a.length; i++) {
+//            if (a[i] == 10) {
+//                boshi = i;
+//                break;
+//            }
+//        }
+//
+//
+//        System.out.println(boshi);
+//        int nYuq = 0;
+//        int nPas = 0;
+//
+//        for (int i = 0; i < 2; i++) {
+//            nYuq = 0;
+//            nPas = 0;
+//            for (int j = boshi + i * belgiUzunligi + 200; j < boshi + i * belgiUzunligi + 400; j++) {
+//                if (a[j] == 10) {
+//                    nYuq += a[j];
+//                } else {
+//                    nPas += a[j];
+//                }
+//            }
+//            if (nYuq > 1500) {
+//                System.out.println("nYuq : " + nYuq);
+//                System.out.println("nPas : " + nPas);
+//                continue;
+//            } else {
+//                System.out.println("nYuq a: " + nYuq);
+//                System.out.println("nPas a: " + nPas);
+//            }
+//        }
+//
+//
+//        /** signalSonini aniqlash */
+//        int signalSoni = (int) Math.floor((a.length - boshi) / belgiUzunligi);
+//
+//        System.out.println(signalSoni);
+//        ReadAudio(a, 10, 10, boshi);
+    }
+
+    private static void ReadAudio(double[] fileArr, int signalSoni, int qoldiq, int boshi) {
+
+//        WaveData waveData = new WaveData();
+//        double[] t = waveData.extractAmplitudeFromFile(files);
+//        double[] a = new double[(int) (t.length / 10)];
+//
+//        for (int i = 0; i < Math.floor(t.length / 10); i++) {
+//            a[i] = t[10 * i];
+//        }
+
+//        int qoldiq;
+//
+//        double[] t;
+//        double[] a;
+//
+//        int flag = 0;
+//
+//        int nYuq;
+//        int nPas;
+//
+//
+//        List<Integer> listYu = new ArrayList<>();
+//        List<Integer> listPas = new ArrayList<>();
+//
+//        List<Integer> listOraliq = new ArrayList<>();
 
 
         /************* Birinchi fayl uchun **************/
 
 
-        t = waveData.extractAmplitudeFromFile(files[0]);
-
-        a = new double[(int) Math.floor(t.length / 10)];
-
-        a = SignalgaIshlovBerish(t);
-
-
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == 10) {
-                flag = i;
-                break;
-            }
-        }
-
-        int belgiUzunligi = 2820;
-
-//        System.out.println("flag => " + flag);
-
-        int countBelgi = (a.length - flag) / belgiUzunligi;
-        System.out.println("belgi => " + countBelgi);
-
-        qoldiq = (a.length - flag) % belgiUzunligi;
-        System.out.println("qoldiq => " + qoldiq);
-
-        int k = flag + 1210;
+//        t = waveData.extractAmplitudeFromFile(files[0]);
+//
+//        a = new double[(int) Math.floor(t.length / 10)];
+//
+//        a = SignalgaIshlovBerish(t);
+//
+//
+//        for (int i = 0; i < a.length; i++) {
+//            if (a[i] == 10) {
+//                flag = i;
+//                break;
+//            }
+//        }
+//
+//        int belgiUzunligi = 2820;
+//
+////        System.out.println("flag => " + flag);
+//
+//        int countBelgi = (a.length - flag) / belgiUzunligi;
+//        System.out.println("belgi => " + countBelgi);
+//
+//        qoldiq = (a.length - flag) % belgiUzunligi;
+//        System.out.println("qoldiq => " + qoldiq);
+//
+//        int k = flag + 1200;
 
 
         /***********************************************************/
-        for (int i = 0; i < countBelgi; i++) {
-
-            nYuq = 0;
-            nPas = 0;
-
-            for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
-                if (a[j] == 10) {
-                    nYuq += a[j];
-                } else {
-                    nPas++;
-                }
-            }
-
-            listYu.add(nYuq);
-            listPas.add(nPas);
-        }
+//        for (int i = 0; i < countBelgi; i++) {
+//
+//            nYuq = 0;
+//            nPas = 0;
+//
+//            for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
+//                if (a[j] == 10) {
+//                    nYuq += a[j];
+//                } else {
+//                    nPas++;
+//                }
+//            }
+//
+//            listYu.add(nYuq);
+//            listPas.add(nPas);
+//        }
+//
+//        /** Natija text */
+//        for (int i = 0; i < listYu.size(); i++) {
+//            if (listYu.get(i) > listPas.get(i)) {
+//                System.out.print(1);
+//            } else {
+//                System.out.print(0);
+//            }
+//        }
+//
+//        listYu.clear();
+//        listPas.clear();
 
 
         /**  Ikkinchi va undan keyingi fayllar uchun  */
 
-        for (int fi = 0; fi < files.length; fi++) {
+//        for (int fi = 1; fi < files.length; fi++) {
+//
+//
+//            File fileTemp = files[fi];// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
+//
+////            System.out.println(fileTemp.isFile());
+//
+//            t = waveData.extractAmplitudeFromFile(fileTemp);
+//
+////            System.out.println(t.length);
+//
+////            System.out.println((int) Math.floor(t.length / 10));
 
+        /**** Eski fayl qoldiqlari qo'shish ***/
+//            for (int i = a.length - qoldiq; i < a.length; i++) {
+//                listOraliq.add((int) a[i]);
+//            }
+//
+//
+//            a = new double[(int) Math.floor(t.length / 10)];
+//
+//            a = SignalgaIshlovBerish(t);
 
-            File fileTemp = files[fi];// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
-
-//            System.out.println(fileTemp.isFile());
-
-            t = waveData.extractAmplitudeFromFile(fileTemp);
-
-//            System.out.println(t.length);
-
-//            System.out.println((int) Math.floor(t.length / 10));
-
-            /**** Eski fayl qoldiqlari qo'shish ***/
-            for (int i = a.length - qoldiq; i < a.length; i++) {
-                listOraliq.add((int) a[i]);
-            }
-
-
-            a = new double[(int) Math.floor(t.length / 10)];
-
-            a = SignalgaIshlovBerish(t);
-
-            /**** Yangi fayl qoldiqlarini qo'shish ***/
-            for (int i = 0; i < belgiUzunligi - qoldiq; i++) {
-                listOraliq.add((int) a[i]);
-            }
-
-            nYuq = 0;
-            nPas = 0;
-
-            for (int i = 0; i < 2820; i++) {
-                if (a[i] == 10) {
-                    nYuq += a[i];
-                } else {
-                    nPas++;
-                }
-            }
-
-            listYu.add(nYuq);
-            listPas.add(nPas);
-
-            for (int i = 0; i < countBelgi; i++) {
-
-                nYuq = 0;
-                nPas = 0;
-
-                for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
-                    if (a[j] == 10) {
-                        nYuq += a[j];
-                    } else {
-                        nPas++;
-                    }
-                }
-
-                listYu.add(nYuq);
-                listPas.add(nPas);
-            }
-
-        }
-
-        System.out.println(listYu);
-        System.out.println(listPas);
+        /**** Yangi fayl qoldiqlarini qo'shish ***/
+//            for (int i = 0; i < belgiUzunligi - qoldiq; i++) {
+//                listOraliq.add((int) a[i]);
+//            }
+//
+//            nYuq = 0;
+//            nPas = 0;
+//
+//            for (int i = 0; i < 2820; i++) {
+//                if (a[i] == 10) {
+//                    nYuq += a[i];
+//                } else {
+//                    nPas++;
+//                }
+//            }
+//
+//            listYu.add(nYuq);
+//            listPas.add(nPas);
+//
+//            for (int i = 0; i < countBelgi; i++) {
+//
+//                nYuq = 0;
+//                nPas = 0;
+//
+//                for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
+//                    if (a[j] == 10) {
+//                        nYuq += a[j];
+//                    } else {
+//                        nPas++;
+//                    }
+//                }
+//
+//                listYu.add(nYuq);
+//                listPas.add(nPas);
+//            }
+//
+//        }
+//
+//        System.out.println(listYu);
+//        System.out.println(listPas);
 
 
         /** Natija text */
-        for (int i = 0; i < listYu.size(); i++) {
-            if (listYu.get(i) > listPas.get(i)) {
-                System.out.print(1);
-            } else {
-                System.out.print(0);
-            }
-        }
+//        for (int i = 0; i < listYu.size(); i++) {
+//            if (listYu.get(i) > listPas.get(i)) {
+//                System.out.print(1);
+//            } else {
+//                System.out.print(0);
+//            }
+//        }
 
 
 //
@@ -243,7 +324,7 @@ public class TestReader {
 //
 //
 //        System.out.println("O'lcham => " + t.length);
-//        writeExcell(a);
+//        writeExcell(fileArr);
 //
 //        readWaveSignal();
 
@@ -254,7 +335,7 @@ public class TestReader {
         double[] arr = new double[(int) Math.floor(t.length / 10)];
         /**Signalga ishlov berish :) ajoyib narsa */
         for (int k = 0; k < arr.length; k++) {
-            if (Math.abs(t[k * 10]) > 5000) {
+            if (Math.abs(t[k * 10]) > 25000) {
                 arr[k] = 10;
             } else {
                 arr[k] = 0;

@@ -73,7 +73,7 @@
         </font>
     </TextArea>
 
-    <TextArea fx:id="id_taEncodeText" disable="true" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
+    <TextArea fx:id="id_taEncodeText" disable="false" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
               promptText="Encode text" style="-fx-color: green;" wrapText="true">
         <font>
             <Font size="14.0"/>
