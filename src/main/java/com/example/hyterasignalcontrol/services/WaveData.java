@@ -25,16 +25,14 @@ public class WaveData {
     private double durationSec;
     private double durationMSec;
 
-    public WaveData() {
-    }
-
     public double[] extractAmplitudeFromFile(File wavFile) {
         try {
 //             create file input stream
-            FileInputStream fis = new FileInputStream(wavFile);
-            // create byte array from file
-            arrFile = new byte[(int) wavFile.length()];
-            fis.read(arrFile);
+            try (FileInputStream fis = new FileInputStream(wavFile)) {
+                // create byte array from file
+                arrFile = new byte[(int) wavFile.length()];
+                fis.read(arrFile);
+            }
         } catch (Exception e) {
             System.out.println("SomeException : " + e.toString());
         }
@@ -44,6 +42,7 @@ public class WaveData {
     public double[] extractAmplitudeFromFileByteArray(byte[] arrFile) {
         // System.out.println("File : "+wavFile+""+arrFile.length);
         bis = new ByteArrayInputStream(arrFile);
+
         return extractAmplitudeFromFileByteArrayInputStream(bis);
     }
     /**

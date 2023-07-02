@@ -114,11 +114,12 @@ public class OutputController implements Initializable {
                     int n = 0;
                     int m = 0;
 
-                    /** Ikkita 1 bit jo'natadi, tanitish uchun */
-                    for (int i = 0; i < 2 * bitSize; i++) {
+                    /** Bir dona bit jo'natadi, tanitish uchun */
+                    for (int i = 0; i < bitSize; i++) {
                         sdl.write(new byte[]{(byte) (Math.sin(i / (8000F / FREQ) * 2.0 * Math.PI) * 127.0)}, 0, 1);
                     }
                     /**** tugadi,  tanitish **/
+
                     String te = list.get(0).toString();
 
                     while (k < textSize) {

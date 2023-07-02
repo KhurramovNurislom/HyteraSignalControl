@@ -1,4 +1,9 @@
+import com.example.hyterasignalcontrol.Main;
 import com.example.hyterasignalcontrol.services.WaveData;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -13,72 +18,178 @@ import java.util.List;
 
 public class TestReader {
 
+    /**
+     * DOT=4, FREQ=800 bo'lganda bitta belgining bytedagi uzunligi quyidagicha:
+     */
+    private static int belgiUzunligi = 566;
 
-    public static void main(String[] args) {
+    /**
+     * Wave fayldan amplitudani o'qib beruvchi class
+     */
+    private static WaveData waveData = new WaveData();
 
+    /**
+     * 0 va 1 belgilarini qiymatini o'zlashtirish uchun listlar,
+     * listYu (yuqori) 1 uchun, listPas (past) 0 uchun
+     */
+    private static List<Integer> listYu = new ArrayList<>();
+    private static List<Integer> listPas = new ArrayList<>();
 
-//        File papka = new File("C:\\SignalControl\\4 800\\Record_172834.wav");
-        File papka = new File("C:\\Worker");
-//        File[] files = papka.listFiles();
+    /**
+     * Qoldiq belgini hisoblash uchun
+     */
+    private static List<Integer> listQol = new ArrayList<>();
 
-        // fayllar bo'sh emasligini tekshirish
-//        if (files != null && files.length > 0) {
-//            // fayllar ro'yxatini chiqarish
-//            System.out.println("Papka ichida quyidagi fayllar mavjud:");
-//            ReadAudio(files);
-//            for (File file : files) {
-//                System.out.println(file.getName());
-//
-//            }
-//        } else {
-//            System.out.println("Papka ichida fayl mavjud emas.");
-//        }
+    private static int qoldiq = 0;
 
-        int belgiUzunligi = 566; /** DOT=4, FREQ=800 bo'lganda bitta belgining bytedagi uzunligi */
+    private static String text = null;
 
-        WaveData waveData = new WaveData();
-        double[] t = waveData.extractAmplitudeFromFile(papka);
-        double[] a = SignalgaIshlovBerish(t);
-
-        List<Integer> listYu = new ArrayList<>();
-        List<Integer> listPas = new ArrayList<>();
-
-        System.out.println(t.length);
-        System.out.println(a.length);
-
-        int nYuq = 0;
-        int nPas = 0;
-
-        for (int i = 11510; i < 11510 + 2*belgiUzunligi; i++) {
-            nYuq += a[i];
-        }
-        System.out.println(nYuq);
+    private static int nYuq = 0;
+    private static int nPas = 0;
 
 
-//        /** boshini aniqlash */
-//        int boshi = 0;
-//        for (int i = 0; i < a.length; i++) {
-//            if (a[i] == 10) {
-//                boshi = i;
-//                break;
-//            }
-//        }
-//
-//
-//        System.out.println(boshi);
-//        int nYuq = 0;
-//        int nPas = 0;
-//
-//        for (int i = 0; i < 2; i++) {
-//            nYuq = 0;
-//            nPas = 0;
-//            for (int j = boshi + i * belgiUzunligi + 200; j < boshi + i * belgiUzunligi + 400; j++) {
-//                if (a[j] == 10) {
-//                    nYuq += a[j];
-//                } else {
-//                    nPas += a[j];
+    public static void main(String[] args) throws InterruptedException, IOException {
+
+        /**
+         * while(true) => SignalControl papkasidagi fayllarning
+         * nomini cheksiz marta o'qib turish uchun ishlatiladi
+         * */
+        while (true) {
+            File papka = new File("C:\\SignalControl");
+            File[] files = papka.listFiles();
+
+            /**
+             * fayllar bo'sh emasligini tekshirish
+             * */
+            if (files != null && files.length > 0) {
+
+                /**
+                 *  Papkada mavjud fayllarni ko'rish
+                 *  */
+//                System.out.println("Papka ichida quyidagi fayllar mavjud:");
+//                for (int i = 0; i < files.length; i++) {
+//                    System.out.println("file [" + i + "] = " + files[i].getName());
 //                }
-//            }
+
+                /**
+                 * papkaning ichidagi birinchi faylni ishchi fayl sifatida tanlab olish,
+                 * bunda fayl o'qiladi, amallar yakunida fayl o'chirib yuboriladi, keyin
+                 * yana papkadagi fayllar qaytadan o'qiladi natijada keyingi fayl birinchi
+                 * faylga aylanadi va amallar qaytadan boshlanadi
+                 * */
+                File file = files[0];
+
+                /**
+                 * WaveData classi wave formatdagi audio fayldan signalning har bir baytiga
+                 * mos amplitudasini o'qib beradi va signal baytlari uzunligiga teng,
+                 * qiymatida amplitudani aks ettiruvchi double tipdagi massivni qaytaradi
+                 * */
+                double[] t = waveData.extractAmplitudeFromFile(file);
+//                System.out.println("real massiv uzunligi : " + t.length);
+
+                /**
+                 * SignalgaIshlovBerish => method ga signal amplitudalari massivi
+                 * va amplitudaning shartli chegarasi beriladi, method berilgan massiv
+                 * uzunligini 10 barbarga qisqartirib, qiymatlarini almashtirib chiqadi,
+                 * bunda, shartli chegaradan yuqori element qiymatini 10 pastkisining
+                 * giymatni 0 bilan almashtirib chiqadi
+                 * */
+                double[] a = SignalgaIshlovBerish(t, 30000);
+//                System.out.println("massivga ishlov berilgandagi uzunligi : " + a.length);
+
+
+                /**
+                 * Yozib olingan signalning ma'lumot boshlangan qismini tanib oluvchi
+                 * belgi sifatida 1 ta 1 belgisi ishlatilgan, birinchi faylning tanituvchi
+                 * belgisini mavjudligini tekshirish quyidagicha:
+                 * */
+
+                /********  Nimalardir yoziladi  *******/
+
+                /**
+                 * Fayldagi belgilarni ajratib olish uchun qayta ishlangan massivni tahlil qilib,quyidagilar aniqlanadi:
+                 * => massivning nechanchi elementidan belgi boshlanishi;
+                 * => massivda nechta belgi mavjudligi;
+                 * => fayl oxirida tugamay qolgan belgining elementlari soni, keyingi faylning butun belgilari
+                 * nechanchi elementdan boshlanishi va ikkala faylda qism qism bo'lib qolgan belgini aniqlash uchun ishlatiladi
+                 * */
+
+
+                /**
+                 *  Birinchi belgi boshlangan joyni aniqlash qismi, a massiv
+                 * uzunligi bo'yicha har bir elementning 10 ga teng ekanligini tekshiradi,
+                 * agar element qiymati 10 ga teng bo'lsa belgi shu elementdan boshlangan
+                 * bo'ladi va uning indeksi boshlang'ich indeks hisoblanadi
+                 */
+                int boshIndex = 0;
+                for (int i = 0; i < a.length; i++) {
+                    if (a[i] == 10) {
+                        boshIndex = i;
+                        break;
+                    }
+                }
+//                System.out.println("birinchi belgining boshlang'ich indeksi : " + boshIndex);
+
+                /**
+                 * Qayta ishlashdan hosil bo'lgan a massivda nechta belgi borligi quyidagicha aniqlanadi:
+                 * => umumiy massiv uzunligidan belgilar boshlanguncha bo'lgan elementlar soni ayirib
+                 * tashlanadi, ayirilgan qism audio fayldagi signal qabul qilinguncha bo'lgan (kutish) qismi hisoblanadi
+                 * => natijani bitta belgining uzunligiga bo'lab, butun qismini olamiz, natija nechi dona
+                 * butun belgi borligini ifodalaydi;
+                 * */
+                int butunBelgilarSoni = (int) Math.floor((a.length - boshIndex) / belgiUzunligi);
+                System.out.println("butun belgilar soni : " + butunBelgilarSoni);
+
+                /**
+                 * Qoldiq qismini aniqlash, bunda bitta belgini hosil qilish uchun
+                 * yetmaydigan, ortib qolgan qoldiq elementlar soni aniqlanadi
+                 * */
+                qoldiq = (int) ((a.length - boshIndex) % belgiUzunligi);
+//                System.out.println("belgining qoldiq elementlari soni : " + qoldiq);
+
+
+                /**
+                 * Belgilarni o'qish methodi
+                 * */
+
+
+                text += ReadAudio(a, butunBelgilarSoni, boshIndex, qoldiq);
+                System.out.print(text);
+                /** o'qib bo'lingan faylni o'chirib tashlash */
+
+                file.delete();
+//                System.out.println("file o'chdi ... ");
+
+//                Thread thread = new Thread();
+//                thread.sleep(5000);
+            } else {
+                System.out.println("Papka ichida fayl mavjud emas.");
+                break;
+            }
+        }
+    }
+
+
+    private static String ReadAudio(double[] fileArr, int butunBelgilarSoni, int boshIndex, int qoldiq) {
+
+
+        nYuq = 0;
+
+        System.out.println("Yangi fayl:");
+
+        for (int i = 0; i < butunBelgilarSoni; i++) {
+            for (int j = boshIndex + i * belgiUzunligi + 200; j < boshIndex + i * belgiUzunligi + 400; j++) {
+                if (fileArr[j] == 10) {
+                    nYuq += fileArr[j];
+                }
+            }
+            System.out.println("nYuq [" + i + "] = " + nYuq);
+            nYuq = 0;
+        }
+
+
+//
+//
 //            if (nYuq > 1500) {
 //                System.out.println("nYuq : " + nYuq);
 //                System.out.println("nPas : " + nPas);
@@ -90,27 +201,12 @@ public class TestReader {
 //        }
 //
 //
-//        /** signalSonini aniqlash */
-//        int signalSoni = (int) Math.floor((a.length - boshi) / belgiUzunligi);
+//
 //
 //        System.out.println(signalSoni);
 //        ReadAudio(a, 10, 10, boshi);
-    }
 
-    private static void ReadAudio(double[] fileArr, int signalSoni, int qoldiq, int boshi) {
 
-//        WaveData waveData = new WaveData();
-//        double[] t = waveData.extractAmplitudeFromFile(files);
-//        double[] a = new double[(int) (t.length / 10)];
-//
-//        for (int i = 0; i < Math.floor(t.length / 10); i++) {
-//            a[i] = t[10 * i];
-//        }
-
-//        int qoldiq;
-//
-//        double[] t;
-//        double[] a;
 //
 //        int flag = 0;
 //
@@ -122,36 +218,6 @@ public class TestReader {
 //        List<Integer> listPas = new ArrayList<>();
 //
 //        List<Integer> listOraliq = new ArrayList<>();
-
-
-        /************* Birinchi fayl uchun **************/
-
-
-//        t = waveData.extractAmplitudeFromFile(files[0]);
-//
-//        a = new double[(int) Math.floor(t.length / 10)];
-//
-//        a = SignalgaIshlovBerish(t);
-//
-//
-//        for (int i = 0; i < a.length; i++) {
-//            if (a[i] == 10) {
-//                flag = i;
-//                break;
-//            }
-//        }
-//
-//        int belgiUzunligi = 2820;
-//
-////        System.out.println("flag => " + flag);
-//
-//        int countBelgi = (a.length - flag) / belgiUzunligi;
-//        System.out.println("belgi => " + countBelgi);
-//
-//        qoldiq = (a.length - flag) % belgiUzunligi;
-//        System.out.println("qoldiq => " + qoldiq);
-//
-//        int k = flag + 1200;
 
 
         /***********************************************************/
@@ -328,14 +394,15 @@ public class TestReader {
 //
 //        readWaveSignal();
 
-
+        return "ad";
     }
 
-    private static double[] SignalgaIshlovBerish(double[] t) {
-        double[] arr = new double[(int) Math.floor(t.length / 10)];
+
+    private static double[] SignalgaIshlovBerish(double[] t, int chegara) {
+        double[] arr = new double[(int) (double) (t.length / 10)];
         /**Signalga ishlov berish :) ajoyib narsa */
         for (int k = 0; k < arr.length; k++) {
-            if (Math.abs(t[k * 10]) > 25000) {
+            if (Math.abs(t[k * 10]) > chegara) {
                 arr[k] = 10;
             } else {
                 arr[k] = 0;

@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0f807874-6533-4319-9f68-9c87c8309e6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/OutputPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/SettingPage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,6 +69,9 @@
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol" />
       <recent name="C:\Users\user\Desktop\GitHub\HyteraSignalControl\src\main\resources\com\example\hyterasignalcontrol\fxml" />
     </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.hyterasignalcontrol.utils" />
       <recent name="com.example.hyterasignalcontrol.services" />
@@ -125,8 +129,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.TestReader" />
-        <item itemvalue="Application.TestMain" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.TestMain" />
         <item itemvalue="Application.RecorderYouTube" />
         <item itemvalue="Application.AudioRecorder" />
       </list>

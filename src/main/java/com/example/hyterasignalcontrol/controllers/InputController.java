@@ -169,75 +169,75 @@ public class InputController implements Initializable {
     private void ReadAudio(File file) {
 
 
-        File fileTemp = file;// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
+//        File fileTemp = file;// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
+//
+//        System.out.println(fileTemp.isFile());
+//
+//        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
+//
+//        System.out.println(t.length);
+//
+//        System.out.println((int) Math.floor(t.length / 10));
+//
+//        double[] a = new double[(int) Math.floor(t.length / 10)];
+//
+//
+//        /**Signalga ishlov berish :) ajoyib narsa */
+//        for (int k = 0; k < a.length; k++) {
+//            if (Math.abs(t[k * 10]) > 5000) {
+//                a[k] = 10;
+//            } else {
+//                a[k] = 0;
+//            }
+//        }
 
-        System.out.println(fileTemp.isFile());
-
-        double[] t = waveData.extractAmplitudeFromFile(fileTemp);
-
-        System.out.println(t.length);
-
-        System.out.println((int) Math.floor(t.length / 10));
-
-        double[] a = new double[(int) Math.floor(t.length / 10)];
-
-
-        /**Signalga ishlov berish :) ajoyib narsa */
-        for (int k = 0; k < a.length; k++) {
-            if (Math.abs(t[k * 10]) > 5000) {
-                a[k] = 10;
-            } else {
-                a[k] = 0;
-            }
-        }
-
-
-        /******** Chastotali modulyatsiya uchun *********/
-
-        List<Integer> listYu = new ArrayList<Integer>();
-        List<Integer> listPas = new ArrayList<Integer>();
-
-        int nYuq = 0;
-        int nPas = 0;
-
-        int k = 0;
-
-        /** Demak Record_215628 signalniki */
-//        int i = 570; i < 40465; i++
-
-        for (int i = 1000; i < 40465; i++) {
-
-            if (k < 2800) {
-                if (a[i] == 10) {
-                    nYuq++;
-                } else {
-                    nPas++;
-                }
-                k++;
-            } else {
-                k = 0;
-
-                listYu.add(nYuq);
-                listPas.add(nPas);
-                nYuq = 0;
-                nPas = 0;
-            }
-
-
-        }
-
-        System.out.println(listYu);
-        System.out.println(listPas);
-
-        for (int i = 0; i < listYu.size(); i++) {
-            if (listYu.get(i) > listPas.get(i)) {
-                System.out.print(1);
-            } else {
-                System.out.print(0);
-            }
-        }
-
-        writeExcell(a);
+//
+//        /******** Chastotali modulyatsiya uchun *********/
+//
+//        List<Integer> listYu = new ArrayList<Integer>();
+//        List<Integer> listPas = new ArrayList<Integer>();
+//
+//        int nYuq = 0;
+//        int nPas = 0;
+//
+//        int k = 0;
+//
+//        /** Demak Record_215628 signalniki */
+////        int i = 570; i < 40465; i++
+//
+//        for (int i = 1000; i < 40465; i++) {
+//
+//            if (k < 2800) {
+//                if (a[i] == 10) {
+//                    nYuq++;
+//                } else {
+//                    nPas++;
+//                }
+//                k++;
+//            } else {
+//                k = 0;
+//
+//                listYu.add(nYuq);
+//                listPas.add(nPas);
+//                nYuq = 0;
+//                nPas = 0;
+//            }
+//
+//
+//        }
+//
+//        System.out.println(listYu);
+//        System.out.println(listPas);
+//
+//        for (int i = 0; i < listYu.size(); i++) {
+//            if (listYu.get(i) > listPas.get(i)) {
+//                System.out.print(1);
+//            } else {
+//                System.out.print(0);
+//            }
+//        }
+//
+//        writeExcell(a);
 
 
 //        /*************  Amplitudali modulyatsiya ***********/
