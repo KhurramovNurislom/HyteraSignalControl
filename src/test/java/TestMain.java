@@ -29,7 +29,6 @@ public class TestMain {
 //        AudioRecorder audioRecorder = new AudioRecorder();
 //        audioRecorder.start();
 //    }
-////
 //
 //
 //    public void AudioRecorder() {
@@ -85,10 +84,10 @@ public class TestMain {
             double sample = 0;
             // Sinus signal
             sample = amplitude * (n) * Math.sin(angle);
-//            System.out.println("asdasdad => " + Math.sin(angle));
-            // Kvadrat signal
+            System.out.println("asdasdad => " + Math.sin(angle));
+//             Kvadrat signal
 //             sample = (Math.sin(angle) > 0) ? amplitude : -amplitude;
-            // Uchburchak signal
+//             Uchburchak signal
 //             sample = (2 * amplitude / Math.PI) * Math.asin(Math.sin(angle));
             buffer[i] = (byte) (sample * 127);
         }

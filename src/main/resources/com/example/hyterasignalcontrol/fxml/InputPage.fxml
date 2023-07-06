@@ -66,14 +66,14 @@
         </font>
     </JFXButton>
 
-    <TextArea fx:id="id_taSignal" disable="true" layoutX="20.0" layoutY="60.0" prefHeight="140.0" prefWidth="560.0"
+    <TextArea fx:id="id_taSignal" layoutX="20.0" layoutY="60.0" prefHeight="140.0" prefWidth="560.0"
               promptText="Signal ..." style="-fx-background-color: #e4afdf;" wrapText="true">
         <font>
             <Font size="14.0"/>
         </font>
     </TextArea>
 
-    <TextArea fx:id="id_taText" disable="true" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
+    <TextArea fx:id="id_taText" layoutX="20.0" layoutY="240.0" prefHeight="140.0" prefWidth="560.0"
               promptText="Text ..." style="-fx-color: green;" wrapText="true">
         <font>
             <Font size="14.0"/>
