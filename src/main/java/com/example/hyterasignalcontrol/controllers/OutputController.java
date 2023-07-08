@@ -22,7 +22,7 @@ public class OutputController implements Initializable {
     public JFXButton id_btnClear;
 
     //    private boolean bool;
-    private static final int DOT = 20, FREQ = 800;
+    private static final int DOT = 4, FREQ = 800;
 
     // Signal parametric
     float frequency = 440; // signal chastotasi (Hz)

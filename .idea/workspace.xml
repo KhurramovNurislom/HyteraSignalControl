@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0f807874-6533-4319-9f68-9c87c8309e6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/InputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hyterasignalcontrol/fxml/InputPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/controllers/OutputController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +49,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/PRO-TEC/Desktop/GitHubNurislom/HyteraSignalControl",
+    "last_opened_file_path": "D:/NeO__/Hytera 2023/youtube",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.28383562",
@@ -163,18 +162,20 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.NegativeArraySizeException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/hyterasignalcontrol/services/WaveData.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
-      <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception" />
-      </default-breakpoints>
     </breakpoint-manager>
   </component>
 </project>

@@ -27,10 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.apache.xmlbeans.impl.common.NameUtil.DOT;
 
@@ -49,6 +46,11 @@ public class InputController implements Initializable {
 
     boolean bool = false;
 
+    boolean boolBoshBelgi = true;
+
+    int boshIndex = 0;
+
+    private String text2 = "";
 
     /**
      * Qabul qilish uchun kerak parametrlar
@@ -60,25 +62,26 @@ public class InputController implements Initializable {
      * Wave fayldan amplitudani o'qib beruvchi class
      */
     private static WaveData waveData = new WaveData();
-
-    /**
-     * 0 va 1 belgilarini qiymatini o'zlashtirish uchun listlar,
-     * listYu (yuqori) 1 uchun, listPas (past) 0 uchun
-     */
-    private static List<Integer> listYu = new ArrayList<>();
-    private static List<Integer> listPas = new ArrayList<>();
+//
+//    /**
+//     * 0 va 1 belgilarini qiymatini o'zlashtirish uchun listlar,
+//     * listYu (yuqori) 1 uchun, listPas (past) 0 uchun
+//     */
+//    private static List<Integer> listYu = new ArrayList<>();
+//    private static List<Integer> listPas = new ArrayList<>();
 
     /**
      * Qoldiq belgini hisoblash uchun
      */
-    private static List<Integer> listQol = new ArrayList<>();
+    private static List<Double> listQol = new ArrayList<>();
 
     private static int qoldiq = 0;
+
+    private static List<Integer> oraliqList;
 
     private static String text = "";
 
     private static int nYuq = 0;
-    private static int nPas = 0;
 
     /*** oxiri ***/
 
@@ -115,6 +118,8 @@ public class InputController implements Initializable {
                 id_btnClear.setDisable(false);
             }
         });
+
+
     }
 
     private void StartFunction() {
@@ -135,7 +140,6 @@ public class InputController implements Initializable {
         };
         thread2.start();
     }
-
 
     private void ClearFunction() {
         id_taText.clear();
@@ -182,6 +186,9 @@ public class InputController implements Initializable {
             targetLine.close();
 //            System.out.println("yozish tugadi");
         }
+
+
+
     }
 
     private void ReadAudio() {
@@ -192,13 +199,11 @@ public class InputController implements Initializable {
             throw new RuntimeException(e);
         }
 
-
         /**
          * while(true) => SignalControl papkasidagi fayllarning
          * nomini cheksiz marta o'qib turish uchun ishlatiladi
          * */
         while (true) {
-
 
             File papka = new File("C:\\SignalControl");
             File[] files = papka.listFiles();
@@ -223,6 +228,8 @@ public class InputController implements Initializable {
                  * faylga aylanadi va amallar qaytadan boshlanadi
                  * */
                 File file = files[0];
+
+                if(!file.exists()) continue;
 
                 /**
                  * WaveData classi wave formatdagi audio fayldan signalning har bir baytiga
@@ -257,8 +264,10 @@ public class InputController implements Initializable {
                  * bo'ladi va uning indeksi boshlang'ich indeks hisoblanadi
                  */
 
-                int k = 0; /** Besh sekundlik fileda ma'lumot yo'qligini tekshirish uchun kerak*/
+                /** Besh sekundlik fileda ma'lumot yo'qligini tekshiradi
+                 va ma'lumot mavjud bo'lmasa faylni o'chirib tashlaydi*/
 
+                int k = 0;
                 for (int i = 0; i < a.length; i++) {
                     if (a[i] == 10) {
                         k++;
@@ -268,28 +277,13 @@ public class InputController implements Initializable {
 
 
                 if (k == 0) {
-
                     try {
                         new Thread().sleep(5000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-
                     file.delete();
-
                 } else {
-
-
-
-                    int boshIndex = 0;
-                    for (int i = 0; i < a.length; i++) {
-                        if (a[i] == 10) {
-                            boshIndex=i;
-                            break;
-                        }
-                    }
-
-//                    System.out.println("birinchi belgining boshlang'ich indeksi : " + boshIndex);
 
 
                     /**
@@ -298,6 +292,16 @@ public class InputController implements Initializable {
                      * belgisini mavjudligini tekshirish quyidagicha:
                      * */
 
+                    if (boolBoshBelgi) {
+                        for (int i = 0; i < a.length; i++) {
+                            if (a[i] == 10) {
+                                boshIndex = i;
+                                boolBoshBelgi = false;
+                                break;
+                            }
+                        }
+                    }
+//                    System.out.println("birinchi belgining boshlang'ich indeksi : " + boshIndex);
 
                     /**
                      * Qayta ishlashdan hosil bo'lgan a massivda nechta belgi borligi quyidagicha aniqlanadi:
@@ -306,37 +310,40 @@ public class InputController implements Initializable {
                      * => natijani bitta belgining uzunligiga bo'lab, butun qismini olamiz, natija nechi dona
                      * butun belgi borligini ifodalaydi;
                      * */
+
                     int butunBelgilarSoni = (int) Math.floor((a.length - boshIndex) / belgiUzunligi);
-                System.out.println("butun belgilar soni : " + butunBelgilarSoni);
+//                    System.out.println("butun belgilar soni : " + butunBelgilarSoni);
 
                     /**
                      * Qoldiq qismini aniqlash, bunda bitta belgini hosil qilish uchun
                      * yetmaydigan, ortib qolgan qoldiq elementlar soni aniqlanadi
                      * */
                     qoldiq = (a.length - boshIndex) % belgiUzunligi;
-                System.out.println("belgining qoldiq elementlari soni : " + qoldiq);
-
+//                    System.out.println("belgining qoldiq elementlari soni : " + qoldiq);
 
                     /**
                      * Belgilarni o'qish methodi
                      * */
 
 
-                    String text2 = "";
-                    text2 += ReadAudio(a, butunBelgilarSoni, boshIndex, qoldiq);
+                    text2 += ReadAudioWorker(a, butunBelgilarSoni, boshIndex, qoldiq);
+
+                    System.out.println(text2);
+                    /**
+                     * keyingi 5 sekundlik fayl uchun bosh indexni aniqlab beradi
+                     * */
+                    boshIndex = belgiUzunligi - qoldiq;
+
+                    String t1;
+                    t1 = text2.substring(1);
+//                    System.out.println("t1 = " + t1);
 
 
-//                String t1 = text2;
-//                t1 = text2.substring(1);
-//                System.out.println("t1 = " + t1);
-//t1="";
-//                byte[] t1bytes = t1.getBytes();
-//                System.out.println();
 
-
-//                id_taSignal.setText();
-
-//                System.out.print(text);
+                    if (t1.length() > 8) {
+                        id_taSignal.setText(t1);
+                    }
+                    t1 = "";
                     /** o'qib bo'lingan faylni o'chirib tashlash */
 
                     try {
@@ -357,156 +364,61 @@ public class InputController implements Initializable {
         }
     }
 
-    private static String ReadAudio(double[] fileArr, int butunBelgilarSoni, int boshIndex, int qoldiq) {
-
+    private static String ReadAudioWorker(double[] fileArr, int butunBelgilarSoni, int boshIndex, int qoldiq) {
         nYuq = 0;
-
         System.out.println("Yangi fayl:");
-        System.out.println("fileArr.length: " + fileArr.length + "\n" +
-                "butunbelgi: " + butunBelgilarSoni + "\n"
-                + "boshIndex: " + boshIndex + "\n" +
-                "qoldiq: " + qoldiq);
+        System.out.println("fileArr.length: " + fileArr.length + "\n" + "butunbelgi: " + butunBelgilarSoni + "\n" + "boshIndex: " + boshIndex + "\n" + "qoldiq: " + qoldiq);
 
 
-        for (int i = 0; i < butunBelgilarSoni; i++) {
-            for (int j = boshIndex + i * belgiUzunligi + 200; j < boshIndex + i * belgiUzunligi + 400; j++) {
-                if (fileArr[j] == 10) {
-                    nYuq += fileArr[j];
+        /** qoldiq listga boshidagi elementlarni qo'shib Oraliq byhtelar listini to'ldirib olish */
+        for (int i = 0; i < boshIndex; i++) {
+            listQol.add(fileArr[i]);
+        }
+
+        if (listQol.size() < 600) {
+            /** oraliq listning 0 yoki 1 ligini */
+            for (int i = 200; i < 400; i++) {
+                if (listQol.get(i) == 10) {
+                    nYuq += listQol.get(i);
                 }
             }
 
             if (nYuq > 1000) {
                 text += "1";
-//                continue;
             } else {
                 text += "0";
             }
             nYuq = 0;
         }
 
-        System.out.println(text);
+        /** Filedagi belgilarni tekshiradi */
+        for (int i = 0; i < butunBelgilarSoni; i++) {
+            for (int j = boshIndex + i * belgiUzunligi + 200; j < boshIndex + i * belgiUzunligi + 400; j++) {
+                if (fileArr[j] == 10) {
+                    nYuq += fileArr[j];
+                }
+            }
+            if (nYuq > 1500) {
+                text += "1";
+            } else {
+                text += "0";
+            }
+            nYuq = 0;
+        }
+
+        String result = "";
+        result = text;
         text = "";
 
 
-//        System.out.println(signalSoni);
-//        ReadAudio(a, 10, 10, boshi);
-
-
-//
-//        int flag = 0;
-//
-//        int nYuq;
-//        int nPas;
-//
-//
-//        List<Integer> listYu = new ArrayList<>();
-//        List<Integer> listPas = new ArrayList<>();
-//
-//        List<Integer> listOraliq = new ArrayList<>();
-
-
-        /***********************************************************/
-//        for (int i = 0; i < countBelgi; i++) {
-//
-//            nYuq = 0;
-//            nPas = 0;
-//
-//            for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
-//                if (a[j] == 10) {
-//                    nYuq += a[j];
-//                } else {
-//                    nPas++;
-//                }
-//            }
-//
-//            listYu.add(nYuq);
-//            listPas.add(nPas);
-//        }
-//
-//        /** Natija text */
-//        for (int i = 0; i < listYu.size(); i++) {
-//            if (listYu.get(i) > listPas.get(i)) {
-//                System.out.print(1);
-//            } else {
-//                System.out.print(0);
-//            }
-//        }
-//
-//        listYu.clear();
-//        listPas.clear();
-
-
-        /**  Ikkinchi va undan keyingi fayllar uchun  */
-
-//        for (int fi = 1; fi < files.length; fi++) {
-//
-//
-//            File fileTemp = files[fi];// new File("C:\\Worker\\Record_215623.wav"); /**+ readFolder.ReadFileName()**/
-//
-////            System.out.println(fileTemp.isFile());
-//
-//            t = waveData.extractAmplitudeFromFile(fileTemp);
-//
-////            System.out.println(t.length);
-//
-////            System.out.println((int) Math.floor(t.length / 10));
-
-        /**** Eski fayl qoldiqlari qo'shish ***/
-//            for (int i = a.length - qoldiq; i < a.length; i++) {
-//                listOraliq.add((int) a[i]);
-//            }
-//
-//
-//            a = new double[(int) Math.floor(t.length / 10)];
-//
-//            a = SignalgaIshlovBerish(t);
-
-        /**** Yangi fayl qoldiqlarini qo'shish ***/
-//            for (int i = 0; i < belgiUzunligi - qoldiq; i++) {
-//                listOraliq.add((int) a[i]);
-//            }
-//
-//            nYuq = 0;
-//            nPas = 0;
-//
-//            for (int i = 0; i < 2820; i++) {
-//                if (a[i] == 10) {
-//                    nYuq += a[i];
-//                } else {
-//                    nPas++;
-//                }
-//            }
-//
-//            listYu.add(nYuq);
-//            listPas.add(nPas);
-//
-//            for (int i = 0; i < countBelgi; i++) {
-//
-//                nYuq = 0;
-//                nPas = 0;
-//
-//                for (int j = k + i * belgiUzunligi; j < k + (420 + i * belgiUzunligi); j++) {
-//                    if (a[j] == 10) {
-//                        nYuq += a[j];
-//                    } else {
-//                        nPas++;
-//                    }
-//                }
-//
-//                listYu.add(nYuq);
-//                listPas.add(nPas);
-//            }
-//
-//        }
-//
-//        System.out.println(listYu);
-//        System.out.println(listPas);
-
+        /** Qoldiq listni tozalab qoldiq elementlar qiymatini yuklaydi */
+        listQol.clear();
+        for (int i = fileArr.length - qoldiq; i < fileArr.length; i++) {
+            listQol.add(fileArr[i]);
+        }
 
         /** Natija text */
-
-
-        return ""/**text*/;
+        return result;
     }
 
     private static double[] SignalgaIshlovBerish(double[] t, int chegara) {
@@ -521,5 +433,4 @@ public class InputController implements Initializable {
         }
         return arr;
     }
-
 }

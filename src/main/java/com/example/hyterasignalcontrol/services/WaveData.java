@@ -69,7 +69,9 @@ public class WaveData {
     }
     public double[] extractAmplitudeDataFromAudioInputStream(AudioInputStream audioInputStream) {
         format = audioInputStream.getFormat();
-        audioBytes = new byte[(int) (audioInputStream.getFrameLength() * format.getFrameSize())];
+        int size = (int) (audioInputStream.getFrameLength() * format.getFrameSize());
+        if(size<0) size = 0;
+        audioBytes = new byte[size];
         // calculate durations
         durationMSec = (long) ((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());
         durationSec = durationMSec / 1000.0;
